@@ -9,15 +9,13 @@
   <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
     <div class="navlink"><a href="/logout">Log out</a></div>
   </nav>
-  <!--<section id="makeDomo">
-    <form id="domoForm" name="domoForm" action="/maker" method="POST" class="domoForm">
+  <section id="makeChampionship">
+    <form id="championshipForm" name="championshipForm" action="/championships" method="POST" class="championshipForm">
       <label for="name">Name: </label>
-      <input id="domoName" type="text" name="name" placeholder="Domo Name"/>
-      <label for="age">Age: </label>
-      <input id="domoAge" type="text" name="age" placeholder="Domo Age"/>
-      <input class="makeDomoSubmit" type="submit" value="Make Domo" />
+      <input id="championshipName" type="text" name="name" placeholder="Championship Name"/>
+      <input class="makeChampionshipSubmit" type="submit" value="Make Championship" />
     </form>
-  </section>-->
+  </section>
   
   <section id="championship">
     {{#if championships}}
