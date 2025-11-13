@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const _ = require('underscore');
+// const _ = require('underscore');
 const { finishPositionSchema } = require('./finishPosition.js');
 const { startPositionSchema } = require('./startPosition.js');
 
-const setName = (name) => _.escape(name).trim();
+// const setName = (name) => _.escape(name).trim();
 
 const RaceSchema = new mongoose.Schema({
   raceNumber: {
