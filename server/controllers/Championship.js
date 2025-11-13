@@ -14,30 +14,30 @@ const championshipsPage = async (req, res) => {
   }
 };
 
-// const makeDomo = async (req, res) => {
-//   if (!req.body.name || !req.body.age) {
-//     return res.status(400).json({ error: 'Both name and age are required!' });
-//   }
+const makeChampionship = async (req, res) => {
+  if (!req.body.name) {
+    return res.status(400).json({ error: 'Championship name is required!' });
+  }
 
-//   const domoData = {
-//     name: req.body.name,
-//     age: req.body.age,
-//     owner: req.session.account._id,
-//   };
+  const championshipData = {
+    name: req.body.name,
+    owner: req.session.account._id,
+  };
 
-//   try {
-//     const newDomo = new Domo(domoData);
-//     await newDomo.save();
-//     return res.json({ redirect: '/maker' });
-//   } catch (err) {
-//     console.log(err);
-//     if (err.code === 11000) {
-//       return res.status(400).json({ error: 'Domo already exists!' });
-//     }
-//     return res.status(500).json({ error: 'An error occured making domo!' });
-//   }
-// };
+  try {
+    const newChampionship = new Championship(championshipData);
+    await newChampionship.save();
+    return res.json({ redirect: '/championships' });
+  } catch (err) {
+    console.log(err);
+    if (err.code === 11000) {
+      return res.status(400).json({ error: 'Championship already exists!' });
+    }
+    return res.status(500).json({ error: 'An error occured making championship!' });
+  }
+};
 
 module.exports = {
   championshipsPage,
+  makeChampionship,
 };
