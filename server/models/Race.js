@@ -11,10 +11,10 @@ const RaceSchema = new mongoose.Schema({
     min: 1,
     required: true,
   },
-  raceData: {
-    type: Date,
-    required: true,
-  },
+  // raceDate: {
+  //   type: Date,
+  //   required: true,
+  // },
   startPositions: [startPositionSchema],
   finishPositions: [finishPositionSchema],
   owner: {

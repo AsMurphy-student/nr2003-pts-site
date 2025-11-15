@@ -1,4 +1,6 @@
 const { JSDOM } = require('jsdom');
+const { forEach } = require('underscore');
+const parseOtherSession = require('./parseOtherSession');
 
 const getTableTitles = (tables) => {
   const tableNameArray = [];
@@ -18,7 +20,13 @@ const createRaceModel = (htmlString) => {
   const domOfRace = new JSDOM(htmlString);
   const tables = domOfRace.window.document.querySelectorAll('table');
   const tableNames = getTableTitles(tables);
-  console.log(tableNames);
+
+  tables.forEach((table, index) => {
+    if (tableNames[index] === 'Session: Qualifying')
+      parseOtherSession(table);
+    else if (tableNames[index] === 'OFFICIAL STANDINGS')
+      parseRaceSession(table);
+  });
 };
 
 module.exports = createRaceModel;
