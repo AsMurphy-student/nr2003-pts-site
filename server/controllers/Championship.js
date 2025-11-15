@@ -20,22 +20,32 @@ const championshipsPage = async (req, res) => {
 const addRace = async (req, res) => {
   try {
     const query = { owner: req.session.account._id, name: req.body.name };
-    const championshipToAddTo = await Championship.find(query)
+    const championshipToAddTo = await Championship.findOne(query)
       .select('name')
       .lean()
       .exec();
 
     // console.log(championshipToAddTo[0].races);
     let newRaceNumber = 0;
-    if (championshipToAddTo[0].races) {
-      newRaceNumber = championshipToAddTo[0].races.length + 1;
+    if (championshipToAddTo.races) {
+      newRaceNumber = championshipToAddTo.races.length + 1;
     } else {
       newRaceNumber = 1;
     }
 
     const htmlContent = fs.readFileSync(`${__dirname}/race.html`, 'utf8');
 
-    createRaceModel(htmlContent, newRaceNumber);
+    // if (championshipToAddTo.races) {
+    //   championshipToAddTo.races.push(createRaceModel(htmlContent, newRaceNumber));
+    // } else {
+    //   championshipToAddTo.races = [createRaceModel(htmlContent, newRaceNumber)];
+    // }
+
+    // await championshipToAddTo.save();
+
+    await Championship.updateOne(query, {
+      $push: { races: createRaceModel(htmlContent, newRaceNumber) }
+    });
 
     // if (prevSib && prevSib.tagName === "H3") {
     //     console.log(prevSib.textContent);
