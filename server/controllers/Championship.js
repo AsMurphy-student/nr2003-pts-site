@@ -1,6 +1,7 @@
 const fs = require('fs');
-const { JSDOM } = require('jsdom');
 const models = require('../models');
+const createRaceModel = require('../helpers/races/createRaceModel');
+
 
 const { Championship } = models;
 
@@ -23,22 +24,11 @@ const addRace = async (req, res) => {
     const championshipToAddTo = await Championship.find(query).select('name').lean().exec();
 
     const htmlContent = fs.readFileSync(`${__dirname}/race.html`, 'utf8');
-    const domOfRace = new JSDOM(htmlContent);
-    const tables = domOfRace.window.document.querySelectorAll('table');
-    // tables.forEach((table) => {
-    //   console.log(table.outerHTML);
-    // });
-    // console.log(tables[0].previousElementSibling.outerHTML);
-    
-    tables.forEach((table) => {
-      const prevSib = table.previousElementSibling.previousElementSibling;
-      const text = prevSib.innerHTML.trim();
-      if (text != "") {
-        console.log(text);
-      } else {
-        console.log(table.previousElementSibling.innerHTML.trim());
-      }
-    })
+
+    createRaceModel(htmlContent);
+
+
+
     // if (prevSib && prevSib.tagName === "H3") {
     //     console.log(prevSib.textContent);
     //   } else if (prevSib && prevSib.childNodes.length > 0) {
