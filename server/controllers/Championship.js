@@ -1,6 +1,7 @@
 const fs = require('fs');
 const models = require('../models');
 const createRaceModel = require('../helpers/races/createRaceModel');
+const updateAllDrivers = require('../helpers/drivers/updateAllDrivers');
 
 const { Championship } = models;
 
@@ -46,9 +47,13 @@ const addRace = async (req, res) => {
 
     // await championshipToAddTo.save();
 
-    await Championship.updateOne(query, {
-      $push: { races: createRaceModel(fileString, newRaceNumber) }
-    });
+    const newRace = createRaceModel(fileString, newRaceNumber);
+
+    updateAllDrivers(newRace);
+
+    // await Championship.updateOne(query, {
+    //   $push: { races: newRace }
+    // });
 
     // if (prevSib && prevSib.tagName === "H3") {
     //     console.log(prevSib.textContent);
@@ -93,5 +98,4 @@ module.exports = {
   championshipsPage,
   makeChampionship,
   addRace,
-  test,
 };
