@@ -10,6 +10,11 @@ const finishPositionSchema = new mongoose.Schema({
     min: 0,
     required: true,
   },
+  startPos: {
+    type: Number,
+    min: 1,
+    required: true,
+  },
   interval: {
     type: String,
     required: true,
@@ -17,6 +22,10 @@ const finishPositionSchema = new mongoose.Schema({
   lapsLed: {
     type: Number,
     min: 0,
+    required: true,
+  },
+  ledMost: {
+    type: Boolean,
     required: true,
   },
   lapsCompleted: {

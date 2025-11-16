@@ -1,4 +1,3 @@
-const fs = require('fs');
 const models = require('../models');
 const createRaceModel = require('../helpers/races/createRaceModel');
 const updateAllDrivers = require('../helpers/drivers/updateAllDrivers');
@@ -22,7 +21,7 @@ const addRace = async (req, res) => {
   try {
     const query = { owner: req.session.account._id, name: req.body.name };
     const championshipToAddTo = await Championship.findOne(query)
-      .select('name')
+      .select('name races drivers')
       .lean()
       .exec();
 
@@ -49,7 +48,7 @@ const addRace = async (req, res) => {
 
     const newRace = createRaceModel(fileString, newRaceNumber);
 
-    updateAllDrivers(newRace);
+    updateAllDrivers(newRace, query);
 
     // await Championship.updateOne(query, {
     //   $push: { races: newRace }

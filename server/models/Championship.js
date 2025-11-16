@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('underscore');
 const { RaceSchema } = require('./Race.js');
+const { DriverSchema } = require('./Driver.js');
 
 const setName = (name) => _.escape(name).trim();
 
@@ -12,6 +13,7 @@ const ChampionshipSchema = new mongoose.Schema({
     set: setName,
   },
   races: [RaceSchema],
+  drivers: [DriverSchema],
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,

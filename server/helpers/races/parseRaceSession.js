@@ -12,8 +12,10 @@ const parseRaceSession = (table) => {
     const newFinish = new Finishes.FinishPositionModel({
       driverName: elements[i + 3].innerHTML.replace(/(\r\n|\n|\r)/g, '').replaceAll('\t', ''),
       carNumber: parseInt(elements[i + 2].innerHTML, 10),
+      startPos: parseInt(elements[i + 1].innerHTML, 10),
       interval: elements[i + 4].innerHTML.replace(/(\r\n|\n|\r)/g, '').replaceAll('\t', ''),
       lapsLed: parseInt(elements[i + 6].innerHTML.replace(/\*$/, ''), 10),
+      ledMost: elements[i + 6].innerHTML.trim().slice(-1) === '*',
       lapsCompleted: parseInt(elements[i + 5].innerHTML, 10),
       status: elements[i + 8].innerHTML.replace(/(\r\n|\n|\r)/g, '').replaceAll('\t', ''),
     });
