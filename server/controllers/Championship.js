@@ -17,13 +17,6 @@ const championshipsPage = async (req, res) => {
   }
 };
 
-const test = async (req, res) => {
-  const fileBuffer = req.files.raceFile;
-  // const fileString = new TextDecoder("utf-8").decode(new Uint8Array(fileBuffer));
-  const fileString = fileBuffer.data.toString('utf8');
-  console.log(fileString);
-};
-
 const addRace = async (req, res) => {
   try {
     const query = { owner: req.session.account._id, name: req.body.name };
@@ -39,8 +32,11 @@ const addRace = async (req, res) => {
     } else {
       newRaceNumber = 1;
     }
+    const fileBuffer = req.files.raceFile;
+    const fileString = fileBuffer.data.toString('utf8');
+    // console.log(fileString);
 
-    const htmlContent = fs.readFileSync(`${__dirname}/race.html`, 'utf8');
+    // const htmlContent = fs.readFileSync(`${__dirname}/race.html`, 'utf8');
 
     // if (championshipToAddTo.races) {
     //   championshipToAddTo.races.push(createRaceModel(htmlContent, newRaceNumber));
@@ -51,7 +47,7 @@ const addRace = async (req, res) => {
     // await championshipToAddTo.save();
 
     await Championship.updateOne(query, {
-      $push: { races: createRaceModel(htmlContent, newRaceNumber) }
+      $push: { races: createRaceModel(fileString, newRaceNumber) }
     });
 
     // if (prevSib && prevSib.tagName === "H3") {

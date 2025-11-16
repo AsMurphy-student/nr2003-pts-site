@@ -200,7 +200,7 @@ const init = () => {
       const formData = new FormData(currentForm);
       formData.append('name', championshipName);
       
-      const response = await fetch('/test', {
+      const response = await fetch('/addRace', {
         method: 'POST',
         body: formData,
       });
