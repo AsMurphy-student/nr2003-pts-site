@@ -22,7 +22,18 @@
       {{#each championships}}
         <div class="championship">
           <h3 class="championshipName">{{this.name}}</h3>
-          <button id="{{this.name}}-addRaceTest">Add Race</button>
+          
+          <!--<input id="{{this.name}}-fileinput" type="file"></input>
+          <button id="{{this.name}}-addRaceTest">Add Race</button>-->
+          
+          <form ref='uploadForm' 
+            id="{{this.name}}-form"
+            action='/test' 
+            method='post' 
+            encType="multipart/form-data">
+                <input type="file" name="raceFile" />
+                <input type='submit' value='Upload!' />
+            </form>
         </div>
       {{/each}}
     {{else}}

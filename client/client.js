@@ -19,14 +19,67 @@ const sendPost = async (url, data) => {
     body: JSON.stringify(data),
   });
 
+  // const formData = new FormData();
+  // for (const key in data) {
+  //   if (data.hasOwnProperty(key)) {
+  //     formData.append(key, data[key]);
+  //   }
+  // }
+
+  // const response = await fetch(url, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'multipart/form-data',
+  //   },
+  //   body: formData,
+  // });
+
   const result = await response.json();
   // document.getElementById('domoMessage').classList.add('hidden');
 
-  if(result.redirect) {
+  if (result.redirect) {
     window.location = result.redirect;
   }
 
-  if(result.error) {
+  if (result.error) {
+    handleError(result.error);
+  }
+};
+
+const sendFile = async (url, data) => {
+  // const response = await fetch(url, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(data),
+  // });
+
+  console.log(data);
+
+  const formData = new FormData();
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      formData.append(key, data[key]);
+    }
+  }
+
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+    body: formData,
+  });
+
+  const result = await response.json();
+  // document.getElementById('domoMessage').classList.add('hidden');
+
+  if (result.redirect) {
+    window.location = result.redirect;
+  }
+
+  if (result.error) {
     handleError(result.error);
   }
 };
@@ -45,7 +98,7 @@ const init = () => {
      from the form, validate everything is correct, and then will
      use sendPost to send the data to the server.
   */
-  if(signupForm) {
+  if (signupForm) {
     signupForm.addEventListener('submit', (e) => {
       e.preventDefault();
       // domoMessage.classList.add('hidden');
@@ -54,27 +107,27 @@ const init = () => {
       const pass = signupForm.querySelector('#pass').value;
       const pass2 = signupForm.querySelector('#pass2').value;
 
-      if(!username || !pass || !pass2) {
+      if (!username || !pass || !pass2) {
         handleError('All fields are required!');
         return false;
-      } 
+      }
 
-      if(pass !== pass2) {
+      if (pass !== pass2) {
         handleError('Passwords do not match!');
         return false;
       }
 
-      sendPost(signupForm.getAttribute('action'), {username, pass, pass2});
+      sendPost(signupForm.getAttribute('action'), { username, pass, pass2 });
       return false;
     });
   }
 
   /* If this page has the loginForm, add it's submit event listener.
-     Event listener will grab the username, password, from the form, 
-     validate both values have been entered, and will use sendPost 
+     Event listener will grab the username, password, from the form,
+     validate both values have been entered, and will use sendPost
      to send the data to the server.
   */
-  if(loginForm) {
+  if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
       // domoMessage.classList.add('hidden');
@@ -82,12 +135,12 @@ const init = () => {
       const username = loginForm.querySelector('#user').value;
       const pass = loginForm.querySelector('#pass').value;
 
-      if(!username || !pass) {
+      if (!username || !pass) {
         handleError('Username or password is empty!');
         return false;
       }
 
-      sendPost(loginForm.getAttribute('action'), {username, pass});
+      sendPost(loginForm.getAttribute('action'), { username, pass });
       return false;
     });
   }
@@ -97,30 +150,65 @@ const init = () => {
      the form. It will throw an error if one or both are missing.
      Otherwise, it will send the request to the server.
   */
-  if(championshipForm) {
+  if (championshipForm) {
     championshipForm.addEventListener('submit', (e) => {
       e.preventDefault();
       // domoMessage.classList.add('hidden');
 
       const name = championshipForm.querySelector('#championshipName').value;
 
-      if(!name) {
+      if (!name) {
         // handleError('All fields are required!');
         return false;
       }
 
-      sendPost(championshipForm.getAttribute('action'), {name});
+      sendPost(championshipForm.getAttribute('action'), { name });
       return false;
     });
   }
-  
-  const addTestButtons = document.querySelectorAll('.championship button');
-  
-  addTestButtons.forEach((button) => {
-    const championshipName = button.id.split('-')[0];
+
+  // const addTestButtons = document.querySelectorAll('.championship button');
+  // const fileInputs = document.querySelectorAll('.championship input');
+
+  // addTestButtons.forEach((button, index) => {
+  //   const championshipName = button.id.split('-')[0];
+
+  //   button.addEventListener('click', async () => {
+  //     // console.log(fileInputs[index].target);
+  //     // sendFile('/test', { name: championshipName });
+  //     // console.log(fileInputs[0].files[0]);
+
+  //     const response = await fetch('/test', {
+  //       method: 'POST',
+  //       body: fileInputs[0].files[0],
+  //     });
+
+  //     console.log(response);
+  //   });
+  // });
+
+  const fileForms = document.querySelectorAll('.championship form');
+
+  fileForms.forEach((form) => {
+    const championshipName = form.id.split('-')[0];
     
-    button.addEventListener('click', () => {
-      sendPost('/addRace', { name: championshipName });
+    let currentForm = form;
+    
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(currentForm);
+      formData.append('name', championshipName);
+      
+      const response = await fetch('/test', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const text = await response.text();
+      document.getElementById('messages').innerText = text;
+
+      return false;
     });
   });
 };

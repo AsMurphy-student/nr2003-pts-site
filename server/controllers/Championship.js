@@ -17,6 +17,13 @@ const championshipsPage = async (req, res) => {
   }
 };
 
+const test = async (req, res) => {
+  const fileBuffer = req.files.raceFile;
+  // const fileString = new TextDecoder("utf-8").decode(new Uint8Array(fileBuffer));
+  const fileString = fileBuffer.data.toString('utf8');
+  console.log(fileString);
+};
+
 const addRace = async (req, res) => {
   try {
     const query = { owner: req.session.account._id, name: req.body.name };
@@ -90,4 +97,5 @@ module.exports = {
   championshipsPage,
   makeChampionship,
   addRace,
+  test,
 };
