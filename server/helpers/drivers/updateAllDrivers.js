@@ -197,8 +197,17 @@ const updateAllDrivers = async (raceModel, champQuery) => {
       }
     });
 
-    console.log(updatedChampionship);
-    console.log(updatedChampionship.drivers[0]);
+    updatedChampionship.drivers.forEach((driver) => {
+      if (
+        driver.startPositions.length < raceModel.raceNumber ||
+        driver.startPositions.length < raceModel.raceNumber
+      ) {
+        console.log(driver);
+      }
+    });
+
+    // console.log(updatedChampionship);
+    // console.log(updatedChampionship.drivers[0]);
 
     // This updates the whole object!111!111!11!
     // Championship.updateOne(
