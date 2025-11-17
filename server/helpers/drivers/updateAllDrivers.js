@@ -20,14 +20,14 @@ const updateAllDrivers = async (raceModel, champQuery) => {
     .lean()
     .exec();
 
-  try {
-    await Driver.DriverModel.updateOne(
-      { _id: new mongoose.Types.ObjectId('691a459a3083dfb83bfb7735') },
-      { $set: { lapsCompleted: 0 } },
-    ).then((result) => console.log(`Updated ${JSON.stringify(result)} document(s)`));
-  } catch (err) {
-    console.error('Error updating driver:', err);
-  }
+  // try {
+  //   await Driver.DriverModel.updateOne(
+  //     { _id: new mongoose.Types.ObjectId('691a459a3083dfb83bfb7735') },
+  //     { $set: { lapsCompleted: 0 } },
+  //   ).then((result) => console.log(`Updated ${JSON.stringify(result)} document(s)`));
+  // } catch (err) {
+  //   console.error('Error updating driver:', err);
+  // }
   // try {
   //   const doc = await Driver.DriverModel.findById('691a459a3083dfb83bfb7735');
   //   if (!doc) {
@@ -82,7 +82,16 @@ const updateAllDrivers = async (raceModel, champQuery) => {
       // console.log(targetDriver.driverName);
 
       if (targetDriver) {
-        const updates = { $set: {} };
+        const updatedDriver = {
+          // create the new driver data
+          ...targetDriver, // keep all existing properties
+          lapsCompleted: 0,
+        };
+
+        updatedChampionship.drivers[
+          updatedChampionship.drivers.indexOf(targetDriver)
+        ] = updatedDriver;
+        // const updates = { $set: {} };
 
         // updates.$set.lapsCompleted =
         //   targetDriver.lapsCompleted + driver.lapsCompleted;
@@ -109,22 +118,33 @@ const updateAllDrivers = async (raceModel, champQuery) => {
         //   ...targetDriver.pointsPerRace,
         //   calculatePoints(raceModel.finishPositions.length, index + 1, driver),
         // ];
-        updates.$set.lapsCompleted = 0;
+        // updates.$set.lapsCompleted = 0;
 
         // console.log(updates);
 
-        await Driver.DriverModel.updateOne({ _id: targetDriver._id }, updates, {
-          upsert: false,
-        })
-          .then((result) => {
-            // console.log(
-            //   `Updated ${targetDriver.driverName} with result`,
-            //   result,
-            // );
-          })
-          .catch((error) => {
-            // console.error('Error updating driver:', error);
-          });
+        // await Driver.DriverModel.updateOne({ _id: targetDriver._id }, { $set: updates }, {
+        //   upsert: false,
+        // })
+        //   .then((result) => {
+        //     console.log(
+        //       `Updated ${targetDriver.driverName} with result`,
+        //       result,
+        //     );
+        //   })
+        //   .catch((error) => {
+        //     console.error('Error updating driver:', error);
+        //   });
+        // await Driver.DriverModel.findByIdAndUpdate(
+        //   targetDriver._id,
+        //   updates,
+        // ).then((result) => {
+        //   console.log(`Updated ${targetDriver.driverName} with result`, result);
+        // }).catch((error) => {
+        //   console.error('Error updating driver:', error);
+        // });
+        // await Driver.DriverModel.findById(targetDriver._id).then((result) =>
+        //   console.log(result),
+        // );
       } else {
         const startPosArray = new Array(raceModel.raceNumber - 1).fill(0);
         startPosArray.push(driver.startPos);
@@ -148,13 +168,27 @@ const updateAllDrivers = async (raceModel, champQuery) => {
           finishes: 1,
           pointsPerRace: pointsArray,
         });
-        // updatedChampionship.drivers.push(newDriver);
+        updatedChampionship.drivers.push(newDriver);
         // await Championship.updateOne(champQuery, {
         // $push: { drivers: newDriver },
         // });
         // console.log(newDriver);
       }
     });
+
+
+    console.log(updatedChampionship);
+
+
+    // This updates the whole object!111!111!11!
+    // Championship.updateOne(
+    //   { _id: updatedChampionship._id },
+    //   { $set: updatedChampionship },
+    // )
+    //   .then(() => console.log('Championship updated successfully!'))
+    //   .catch((err) => {
+    //     console.error('Error updating championship:', err);
+    //   });
   }
 };
 
