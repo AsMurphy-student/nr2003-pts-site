@@ -47,13 +47,13 @@ const addRace = async (req, res) => {
     // await championshipToAddTo.save();
 
     // Remember to set back to newRaceNumber after fixing drivers updating
-    const newRace = createRaceModel(fileString, 2);
+    const newRace = createRaceModel(fileString, newRaceNumber);
+
+    await Championship.updateOne(query, {
+      $push: { races: newRace }
+    });
 
     updateAllDrivers(newRace, query);
-
-    // await Championship.updateOne(query, {
-    //   $push: { races: newRace }
-    // });
 
     // if (prevSib && prevSib.tagName === "H3") {
     //     console.log(prevSib.textContent);
