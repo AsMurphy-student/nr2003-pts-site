@@ -82,10 +82,31 @@ const updateAllDrivers = async (raceModel, champQuery) => {
       // console.log(targetDriver.driverName);
 
       if (targetDriver) {
+        // startPositions
+        // starts
+        // finishPositions
+        // finishes
+        // pointsPerRace
         const updatedDriver = {
           // create the new driver data
           ...targetDriver, // keep all existing properties
-          lapsCompleted: 0,
+          lapsCompleted: targetDriver.lapsCompleted + driver.lapsCompleted,
+          lapsLed: targetDriver.lapsLed + driver.lapsLed,
+          dnfs: targetDriver.dnfs + (driver.status !== 'Running' ? 1 : 0),
+          racesLed: targetDriver.racesLed + (driver.lapsLed > 0 ? 1 : 0),
+          startPositions: [...targetDriver.startPositions, driver.startPos],
+          starts: targetDriver.starts + 1,
+          finishPositions: [...targetDriver.finishPositions, index + 1],
+          finishes: targetDriver.finishes + 1,
+          pointsPerRace: [
+            ...targetDriver.pointsPerRace,
+            targetDriver.pointsPerRace[targetDriver.pointsPerRace.length - 1] +
+              calculatePoints(
+                raceModel.finishPositions.length,
+                index + 1,
+                driver,
+              ),
+          ],
         };
 
         updatedChampionship.drivers[
@@ -176,9 +197,8 @@ const updateAllDrivers = async (raceModel, champQuery) => {
       }
     });
 
-
     console.log(updatedChampionship);
-
+    console.log(updatedChampionship.drivers[0]);
 
     // This updates the whole object!111!111!11!
     // Championship.updateOne(
