@@ -52,9 +52,19 @@ redisClient.connect().then(() => {
     }),
   );
 
-  app.engine('handlebars', expressHandlebars.engine({ defaultLayout: '' }));
+  app.engine(
+    'handlebars',
+    expressHandlebars.engine({
+      defaultLayout: '',
+      helpers: {
+        increment: (val) => val + 1,
+      },
+    }),
+  );
   app.set('view engine', 'handlebars');
   app.set('views', `${__dirname}/../views`);
+
+  // expressHandlebars.registerHelper('increment', (val) => val + 1);
 
   router(app);
 

@@ -17,6 +17,28 @@ const championshipsPage = async (req, res) => {
   }
 };
 
+const championshipOverviewPage = async (req, res) => {
+  try {
+    const query = { owner: req.session.account._id, name: req.params.name };
+    const championshipData = await Championship.findOne(query)
+      .select('name races drivers')
+      .lean()
+      .exec();
+
+    championshipData.drivers.sort(
+      (a, b) =>
+        b.pointsPerRace[b.pointsPerRace.length - 1] -
+        a.pointsPerRace[a.pointsPerRace.length - 1],
+    );
+
+    if (!championshipData)
+      return res.status(500).json({ error: 'Invalid championship name!' });
+    return res.render('championship_overview', championshipData);
+  } catch (err) {
+    return res.status(500).json({ error: 'Invalid championship name!' });
+  }
+};
+
 const addRace = async (req, res) => {
   try {
     const query = { owner: req.session.account._id, name: req.body.name };
@@ -50,7 +72,7 @@ const addRace = async (req, res) => {
     const newRace = createRaceModel(fileString, newRaceNumber);
 
     await Championship.updateOne(query, {
-      $push: { races: newRace }
+      $push: { races: newRace },
     });
 
     updateAllDrivers(newRace, query);
@@ -96,6 +118,7 @@ const makeChampionship = async (req, res) => {
 
 module.exports = {
   championshipsPage,
+  championshipOverviewPage,
   makeChampionship,
   addRace,
 };
