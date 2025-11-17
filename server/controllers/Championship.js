@@ -46,6 +46,7 @@ const addRace = async (req, res) => {
 
     // await championshipToAddTo.save();
 
+    // Remember to set back to newRaceNumber after fixing drivers updating
     const newRace = createRaceModel(fileString, 2);
 
     updateAllDrivers(newRace, query);
