@@ -14,7 +14,7 @@ const calculatePoints = (carCount, finishPos, driver) => {
 
 const updateAllDrivers = async (raceModel, champQuery) => {
   const championshipToUpdate = await Championship.findOne(champQuery)
-    .select('name races drivers')
+    .select('name totalLaps races drivers')
     .lean()
     .exec();
 
@@ -69,6 +69,9 @@ const updateAllDrivers = async (raceModel, champQuery) => {
       await Championship.updateOne(champQuery, {
         $push: { drivers: newDriver },
       });
+    });
+    await Championship.updateOne(champQuery, {
+      $inc: { totalLaps: raceModel.finishPositions[0].lapsCompleted },
     });
   } else {
     const updatedChampionship = championshipToUpdate;
@@ -206,6 +209,12 @@ const updateAllDrivers = async (raceModel, champQuery) => {
       }
     });
 
+    updatedChampionship.totalLaps += raceModel.finishPositions[0].lapsCompleted;
+    // console.log(updatedChampionship.totalLaps);
+
+    // console.log(updatedChampionship);
+
+    // console.log('hello');
     // updatedChampionship.drivers.sort(
     //   (a, b) =>
     //     b.pointsPerRace[b.pointsPerRace.length - 1] -

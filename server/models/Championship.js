@@ -14,6 +14,11 @@ const ChampionshipSchema = new mongoose.Schema({
   },
   races: [RaceSchema],
   drivers: [DriverSchema],
+  totalLaps: {
+    type: Number,
+    min: 0,
+    required: true,
+  },
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,

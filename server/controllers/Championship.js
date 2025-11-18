@@ -6,7 +6,6 @@ const { Championship } = models;
 
 const championshipsPage = async (req, res) => {
   try {
-    // console.log(req.session.account.championships);
     const query = { owner: req.session.account._id };
     const docs = await Championship.find(query).select('name').lean().exec();
 
@@ -61,7 +60,6 @@ const addRace = async (req, res) => {
     });
 
     await updateAllDrivers(newRace, query);
-    console.log('redirect');
     return res.json({ redirect: `/championships/${championshipToAddTo.name}` });
   } catch (err) {
     console.log(err);
@@ -76,6 +74,7 @@ const makeChampionship = async (req, res) => {
 
   const championshipData = {
     name: req.body.name,
+    totalLaps: 0,
     owner: req.session.account._id,
   };
 
