@@ -208,15 +208,20 @@ const updateAllDrivers = async (raceModel, champQuery) => {
       }
     });
 
+    // updatedChampionship.drivers.sort(
+    //   (a, b) =>
+    //     b.pointsPerRace[b.pointsPerRace.length - 1] -
+    //     a.pointsPerRace[a.pointsPerRace.length - 1],
+    // );
     // console.log(updatedChampionship);
     // console.log(updatedChampionship.drivers[40]);
 
     // This updates the whole object!111!111!11!
-    Championship.updateOne(
+    await Championship.updateOne(
       { _id: updatedChampionship._id },
       { $set: updatedChampionship },
     )
-      .then(() => console.log('Championship updated successfully!'))
+      .then(() => console.log('Championship updated!'))
       .catch((err) => {
         console.error('Error updating championship:', err);
       });

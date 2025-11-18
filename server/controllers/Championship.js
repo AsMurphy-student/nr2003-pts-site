@@ -75,7 +75,9 @@ const addRace = async (req, res) => {
       $push: { races: newRace },
     });
 
-    updateAllDrivers(newRace, query);
+    await updateAllDrivers(newRace, query);
+    console.log('redirect');
+    return res.redirect(`/championships/${championshipToAddTo.name}`);
 
     // if (prevSib && prevSib.tagName === "H3") {
     //     console.log(prevSib.textContent);
@@ -84,7 +86,18 @@ const addRace = async (req, res) => {
     //     console.log(title.textContent);
     //   }
 
-    // return res.render('championships', { championships: docs });
+    // const newData = await Championship.findOne(query)
+    //   .select('name races drivers')
+    //   .lean()
+    //   .exec();
+
+    // newData.drivers.sort(
+    //   (a, b) =>
+    //     b.pointsPerRace[b.pointsPerRace.length - 1] -
+    //     a.pointsPerRace[a.pointsPerRace.length - 1],
+    // );
+    // console.log('done');
+    // return res.render('championship_overview', newData);
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Error retrieving championships!' });

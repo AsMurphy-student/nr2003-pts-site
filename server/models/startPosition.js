@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const trimDriverName = require('./helpers/trimmer');
 
 const startPositionSchema = new mongoose.Schema({
   driverName: {
     type: String,
     required: true,
+    set: trimDriverName
   },
   carNumber: {
     type: Number,

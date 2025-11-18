@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const trimDriverName = require('./helpers/trimmer');
 
 const finishPositionSchema = new mongoose.Schema({
   driverName: {
     type: String,
     required: true,
+    set: trimDriverName,
   },
   carNumber: {
     type: Number,
@@ -18,6 +20,7 @@ const finishPositionSchema = new mongoose.Schema({
   interval: {
     type: String,
     required: true,
+    set: trimDriverName,
   },
   lapsLed: {
     type: Number,
@@ -36,6 +39,7 @@ const finishPositionSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
+    set: trimDriverName,
   },
   // owner: {
   //   type: mongoose.Schema.ObjectId,
