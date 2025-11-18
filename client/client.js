@@ -205,8 +205,14 @@ const init = () => {
         body: formData,
       });
 
-      const text = await response.text();
-      document.getElementById('messages').innerText = text;
+      const result = await response.json();
+
+      if (result.redirect) {
+        window.location = result.redirect;
+      }
+
+      // const text = await response.text();
+      // document.getElementById('messages').innerText = text;
 
       return false;
     });

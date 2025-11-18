@@ -47,7 +47,6 @@ const addRace = async (req, res) => {
       .lean()
       .exec();
 
-    // console.log(championshipToAddTo[0].races);
     let newRaceNumber = 0;
     if (championshipToAddTo.races) {
       newRaceNumber = championshipToAddTo.races.length + 1;
@@ -56,19 +55,7 @@ const addRace = async (req, res) => {
     }
     const fileBuffer = req.files.raceFile;
     const fileString = fileBuffer.data.toString('utf8');
-    // console.log(fileString);
 
-    // const htmlContent = fs.readFileSync(`${__dirname}/race.html`, 'utf8');
-
-    // if (championshipToAddTo.races) {
-    //   championshipToAddTo.races.push(createRaceModel(htmlContent, newRaceNumber));
-    // } else {
-    //   championshipToAddTo.races = [createRaceModel(htmlContent, newRaceNumber)];
-    // }
-
-    // await championshipToAddTo.save();
-
-    // Remember to set back to newRaceNumber after fixing drivers updating
     const newRace = createRaceModel(fileString, newRaceNumber);
 
     await Championship.updateOne(query, {
@@ -77,27 +64,7 @@ const addRace = async (req, res) => {
 
     await updateAllDrivers(newRace, query);
     console.log('redirect');
-    return res.redirect(`/championships/${championshipToAddTo.name}`);
-
-    // if (prevSib && prevSib.tagName === "H3") {
-    //     console.log(prevSib.textContent);
-    //   } else if (prevSib && prevSib.childNodes.length > 0) {
-    //     const title = prevSib.firstChild;
-    //     console.log(title.textContent);
-    //   }
-
-    // const newData = await Championship.findOne(query)
-    //   .select('name races drivers')
-    //   .lean()
-    //   .exec();
-
-    // newData.drivers.sort(
-    //   (a, b) =>
-    //     b.pointsPerRace[b.pointsPerRace.length - 1] -
-    //     a.pointsPerRace[a.pointsPerRace.length - 1],
-    // );
-    // console.log('done');
-    // return res.render('championship_overview', newData);
+    return res.json({ redirect: `/championships/${championshipToAddTo.name}` });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Error retrieving championships!' });
