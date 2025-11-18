@@ -111,7 +111,7 @@ const updateAllDrivers = async (raceModel, champQuery) => {
           startSum += targetDriver.startPositions[s];
         }
         startSum += driver.startPos;
-        
+
         let finishSum = 0;
         for (let f = 0; f < targetDriver.finishPositions.length; f++) {
           finishSum += targetDriver.finishPositions[f];
