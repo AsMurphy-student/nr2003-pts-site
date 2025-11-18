@@ -5,7 +5,7 @@ const startPositionSchema = new mongoose.Schema({
   driverName: {
     type: String,
     required: true,
-    set: trimDriverName
+    set: trimDriverName,
   },
   carNumber: {
     type: Number,

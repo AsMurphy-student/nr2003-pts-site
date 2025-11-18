@@ -1,5 +1,3 @@
-const mongoose = require('mongoose');
-
 const models = require('../../models');
 
 const { Championship, Driver } = models;
@@ -100,8 +98,8 @@ const updateAllDrivers = async (raceModel, champQuery) => {
           finishes: targetDriver.finishes + 1,
           pointsPerRace: [
             ...targetDriver.pointsPerRace,
-            targetDriver.pointsPerRace[targetDriver.pointsPerRace.length - 1] +
-              calculatePoints(
+            targetDriver.pointsPerRace[targetDriver.pointsPerRace.length - 1]
+              + calculatePoints(
                 raceModel.finishPositions.length,
                 index + 1,
                 driver,

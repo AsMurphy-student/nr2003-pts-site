@@ -26,13 +26,11 @@ const championshipOverviewPage = async (req, res) => {
       .exec();
 
     championshipData.drivers.sort(
-      (a, b) =>
-        b.pointsPerRace[b.pointsPerRace.length - 1] -
-        a.pointsPerRace[a.pointsPerRace.length - 1],
+      (a, b) => b.pointsPerRace[b.pointsPerRace.length - 1]
+        - a.pointsPerRace[a.pointsPerRace.length - 1],
     );
 
-    if (!championshipData)
-      return res.status(500).json({ error: 'Invalid championship name!' });
+    if (!championshipData) return res.status(500).json({ error: 'Invalid championship name!' });
     return res.render('championship_overview', championshipData);
   } catch (err) {
     return res.status(500).json({ error: 'Invalid championship name!' });
