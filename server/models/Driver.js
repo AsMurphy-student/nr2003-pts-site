@@ -11,6 +11,36 @@ const DriverSchema = new mongoose.Schema(
       min: 0,
       required: true,
     },
+    poles: {
+      type: Number,
+      min: 0,
+      required: true,
+    },
+    wins: {
+      type: Number,
+      min: 0,
+      required: true,
+    },
+    top5: {
+      type: Number,
+      min: 0,
+      required: true,
+    },
+    top10: {
+      type: Number,
+      min: 0,
+      required: true,
+    },
+    top15: {
+      type: Number,
+      min: 0,
+      required: true,
+    },
+    top20: {
+      type: Number,
+      min: 0,
+      required: true,
+    },
     lapsCompleted: {
       type: Number,
       min: 0,
@@ -45,6 +75,16 @@ const DriverSchema = new mongoose.Schema(
     },
     finishes: {
       type: Number,
+      required: true,
+    },
+    avgStart: {
+      type: Number,
+      min: 0,
+      required: true,
+    },
+    avgFinish: {
+      type: Number,
+      min: 0,
       required: true,
     },
     pointsPerRace: {
