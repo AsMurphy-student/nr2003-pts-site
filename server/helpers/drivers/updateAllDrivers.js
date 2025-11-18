@@ -39,6 +39,12 @@ const updateAllDrivers = async (raceModel, champQuery) => {
 
   // driverName
   // Car number
+  // poles
+  // wins
+  // top5
+  // top10
+  // top15
+  // top20
   // lapsCompleted
   // lapsLed
   // dnfs
@@ -47,12 +53,20 @@ const updateAllDrivers = async (raceModel, champQuery) => {
   // starts
   // finishPositions
   // finishes
+  // avgStart
+  // avgFinish
   // pointsPerRace
   if (championshipToUpdate.drivers.length === 0) {
     raceModel.finishPositions.forEach(async (driver, index) => {
       const newDriver = new Driver.DriverModel({
         driverName: driver.driverName,
         carNumber: driver.carNumber,
+        poles: 0,
+        wins: 0,
+        top5: 0,
+        top10: 0,
+        top15: 0,
+        top20: 0,
         lapsCompleted: driver.lapsCompleted,
         lapsLed: driver.lapsLed,
         dnfs: driver.status !== 'Running' ? 1 : 0,
@@ -61,10 +75,19 @@ const updateAllDrivers = async (raceModel, champQuery) => {
         starts: 1,
         finishPositions: [index + 1],
         finishes: 1,
+        avgStart: driver.startPos,
+        avgFinish: index + 1,
         pointsPerRace: [
           calculatePoints(raceModel.finishPositions.length, index + 1, driver),
         ],
       });
+
+      if (index + 1 <= 20) newDriver.top20 = 1;
+      if (index + 1 <= 15) newDriver.top15 = 1;
+      if (index + 1 <= 10) newDriver.top10 = 1;
+      if (index + 1 <= 5) newDriver.top5 = 1;
+      if (index + 1 === 1) newDriver.wins = 1;
+      if (driver.startPos === 1) newDriver.poles = 1;
 
       await Championship.updateOne(champQuery, {
         $push: { drivers: newDriver },
@@ -83,14 +106,26 @@ const updateAllDrivers = async (raceModel, champQuery) => {
       // console.log(targetDriver.driverName);
 
       if (targetDriver) {
-        // startPositions
-        // starts
-        // finishPositions
-        // finishes
-        // pointsPerRace
+        let startSum = 0;
+        for (let s = 0; s < targetDriver.startPositions.length; s++) {
+          startSum += targetDriver.startPositions[s];
+        }
+        startSum += driver.startPos;
+        
+        let finishSum = 0;
+        for (let f = 0; f < targetDriver.finishPositions.length; f++) {
+          finishSum += targetDriver.finishPositions[f];
+        }
+        finishSum += index + 1;
+
         const updatedDriver = {
-          // create the new driver data
-          ...targetDriver, // keep all existing properties
+          ...targetDriver,
+          poles: targetDriver.poles + (driver.startPos === 1 ? 1 : 0),
+          wins: targetDriver.wins + (index + 1 === 1 ? 1 : 0),
+          top5: targetDriver.top5 + (index + 1 <= 5 ? 1 : 0),
+          top10: targetDriver.top10 + (index + 1 <= 10 ? 1 : 0),
+          top15: targetDriver.top15 + (index + 1 <= 15 ? 1 : 0),
+          top20: targetDriver.top20 + (index + 1 <= 20 ? 1 : 0),
           lapsCompleted: targetDriver.lapsCompleted + driver.lapsCompleted,
           lapsLed: targetDriver.lapsLed + driver.lapsLed,
           dnfs: targetDriver.dnfs + (driver.status !== 'Running' ? 1 : 0),
@@ -99,6 +134,8 @@ const updateAllDrivers = async (raceModel, champQuery) => {
           starts: targetDriver.starts + 1,
           finishPositions: [...targetDriver.finishPositions, index + 1],
           finishes: targetDriver.finishes + 1,
+          avgStart: parseFloat((startSum / (targetDriver.starts + 1.0)).toFixed(2)),
+          avgFinish: parseFloat((finishSum / (targetDriver.finishes + 1.0)).toFixed(2)),
           pointsPerRace: [
             ...targetDriver.pointsPerRace,
             targetDriver.pointsPerRace[targetDriver.pointsPerRace.length - 1]
@@ -180,6 +217,12 @@ const updateAllDrivers = async (raceModel, champQuery) => {
         const newDriver = new Driver.DriverModel({
           driverName: driver.driverName,
           carNumber: driver.carNumber,
+          poles: 0,
+          wins: 0,
+          top5: 0,
+          top10: 0,
+          top15: 0,
+          top20: 0,
           lapsCompleted: driver.lapsCompleted,
           lapsLed: driver.lapsLed,
           dnfs: driver.status !== 'Running' ? 1 : 0,
@@ -188,8 +231,17 @@ const updateAllDrivers = async (raceModel, champQuery) => {
           starts: 1,
           finishPositions: finishPosArray,
           finishes: 1,
+          avgStart: driver.startPos,
+          avgFinish: index + 1,
           pointsPerRace: pointsArray,
         });
+        if (index + 1 <= 20) newDriver.top20 = 1;
+        if (index + 1 <= 15) newDriver.top15 = 1;
+        if (index + 1 <= 10) newDriver.top10 = 1;
+        if (index + 1 <= 5) newDriver.top5 = 1;
+        if (index + 1 === 1) newDriver.wins = 1;
+        if (driver.startPos === 1) newDriver.poles = 1;
+
         updatedChampionship.drivers.push(newDriver);
         // await Championship.updateOne(champQuery, {
         // $push: { drivers: newDriver },
@@ -205,7 +257,9 @@ const updateAllDrivers = async (raceModel, champQuery) => {
       ) {
         driver.startPositions.push(0);
         driver.finishPositions.push(0);
-        driver.pointsPerRace.push(driver.pointsPerRace[driver.pointsPerRace.length - 1]);
+        driver.pointsPerRace.push(
+          driver.pointsPerRace[driver.pointsPerRace.length - 1],
+        );
       }
     });
 
