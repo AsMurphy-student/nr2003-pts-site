@@ -2,12 +2,13 @@ const models = require('../../models');
 
 const { Finishes } = models;
 
+// Helper function which parses race session from table
 const parseRaceSession = (table) => {
   const finishPosSchemas = [];
   const elements = table.querySelectorAll('td');
-  // elements.forEach((element) => {
-  //   console.log(element.innerHTML);
-  // });
+
+  // We start at index 9 to skip header elements
+  // which are in td tags
   for (let i = 9; i < elements.length; i += 9) {
     const newFinish = new Finishes.FinishPositionModel({
       driverName: elements[i + 3].innerHTML,
