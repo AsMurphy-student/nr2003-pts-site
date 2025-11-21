@@ -19,7 +19,9 @@ const championshipsPage = async (req, res) => {
 
 // Renders the championship overview page
 // This shows current statistics after the latest race
-const championshipOverviewPage = async (req, res) => {
+const championshipOverviewPage = async (req, res) => res.render('championship_overview');
+
+const getChampionshipData = async (req, res) => {
   try {
     const query = { owner: req.session.account._id, name: req.params.name };
     const championshipData = await Championship.findOne(query)
@@ -33,7 +35,7 @@ const championshipOverviewPage = async (req, res) => {
     );
 
     if (!championshipData) return res.status(500).json({ error: 'Invalid championship name!' });
-    return res.render('championship_overview', championshipData);
+    return res.json({ championshipData });
   } catch (err) {
     return res.status(500).json({ error: `Something went wrong: ${err}` });
   }
@@ -107,6 +109,7 @@ const makeChampionship = async (req, res) => {
 module.exports = {
   championshipsPage,
   championshipOverviewPage,
+  getChampionshipData,
   makeChampionship,
   addRace,
 };

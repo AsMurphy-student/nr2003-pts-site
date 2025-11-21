@@ -16,6 +16,7 @@ const router = (app) => {
   app.post('/championships', controllers.Championship.makeChampionship);
 
   app.get('/championships/:name', controllers.Championship.championshipOverviewPage);
+  app.get('/getChampionship', controllers.Championship.getChampionshipData);
 
   app.post('/addRace', controllers.Championship.addRace);
 

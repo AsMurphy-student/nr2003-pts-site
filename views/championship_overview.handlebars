@@ -11,27 +11,8 @@
     <div class="navlink"><a href="/championships">Back to Championships</a></div>
   </nav>
 
-  <h1>{{name}}</h1>
-  <table>
-    <tr>
-        <th>Rank</th>
-        <th>Name</th>
-        <th>Points</th>
-    </tr>
-    {{#each drivers}}
-    {{#with this}}
-    <tr>
-        <td>{{increment @index}}</td>
-        <td>{{driverName}}</td>
-        {{#each pointsPerRace}}
-            {{#if @last}}
-                <td>{{this}}</td>
-            {{/if}}
-        {{/each}}
-    </tr>
-    {{/with}}
-    {{/each}}
-  </table>
-  <script src="/assets/bundle.js"></script>
+  <div id="overviewTable"></div>
+  <script src="/assets/mainBundle.js"></script>
+  <script src="/assets/tableBundle.js"></script>
 </body>
 </html>
