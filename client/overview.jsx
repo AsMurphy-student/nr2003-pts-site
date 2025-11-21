@@ -1,17 +1,19 @@
-// const React = require('react');
-// const { useEffect } = React;
+const React = require('react');
+const { useEffect } = React;
 const { createRoot } = require('react-dom/client');
 
 const Table = () => {
   return (
-    <>
-      <h1>Hello world</h1>
-    </>
+    <div>
+      <div>
+        <p>hello</p>
+      </div>
+    </div>
   );
 };
 
 const init = () => {
-  const root = createRoot(document.getElementById('overviewTable'));
+  const root = createRoot(document.getElementById('testdiv'));
   root.render(<Table />);
 }
 
