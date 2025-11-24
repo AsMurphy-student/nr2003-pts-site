@@ -4,6 +4,7 @@ module.exports = {
     entry: {
       main: './client/client.js',
       table: './client/overview.jsx',
+      test: './client/test.jsx',
     },
     module: {
       rules: [

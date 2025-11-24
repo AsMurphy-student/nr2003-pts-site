@@ -6,14 +6,14 @@ const Table = () => {
   return (
     <div>
       <div>
-        <p>stuff</p>
+        <p>testing</p>
       </div>
     </div>
   );
 };
 
 const init = () => {
-  const root = createRoot(document.getElementById('overviewTable'));
+  const root = createRoot(document.getElementById('testdiv'));
   root.render(<Table />);
 }
 
