@@ -12,9 +12,10 @@ const Table = () => {
   );
 };
 
-const init = () => {
+const tableInit = () => {
   const root = createRoot(document.getElementById('overviewTable'));
   root.render(<Table />);
 }
 
-window.onload = init;
+// window.onload = init;
+window.addEventListener('load', tableInit);

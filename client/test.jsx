@@ -2,7 +2,7 @@ const React = require('react');
 const { useEffect } = React;
 const { createRoot } = require('react-dom/client');
 
-const Table = () => {
+const Test = () => {
   return (
     <div>
       <div>
@@ -12,9 +12,10 @@ const Table = () => {
   );
 };
 
-const init = () => {
+const testInit = () => {
   const root = createRoot(document.getElementById('testdiv'));
-  root.render(<Table />);
+  root.render(<Test />);
 }
 
-window.onload = init;
+// window.onload = testInit;
+window.addEventListener('load', testInit);
