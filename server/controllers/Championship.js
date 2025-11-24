@@ -26,7 +26,7 @@ const championshipOverviewPage = async (req, res) => {
 
 const getChampionshipData = async (req, res) => {
   try {
-    const query = { owner: req.session.account._id, name: req.session.championName };
+    const query = { owner: req.session.account._id, name: req.session.championshipName };
     const championshipData = await Championship.findOne(query)
       .select('name races drivers')
       .lean()
