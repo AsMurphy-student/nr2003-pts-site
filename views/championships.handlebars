@@ -21,7 +21,7 @@
     {{#if championships}}
       {{#each championships}}
         <div class="championship">
-          <h3 class="championshipName">{{this.name}}</h3>
+          <h3 class="championshipName"><a href="/championships/{{this.name}}">{{this.name}}</a></h3>
           
           <!--<input id="{{this.name}}-fileinput" type="file"></input>
           <button id="{{this.name}}-addRaceTest">Add Race</button>-->

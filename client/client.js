@@ -217,6 +217,9 @@ const init = () => {
       return false;
     });
   });
+  
+  // Put functions to navigate to pages
+  const fileForms = document.querySelectorAll('.championship form');
 };
 
 // Call init when the window loads.
