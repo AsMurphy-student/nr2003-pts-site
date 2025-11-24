@@ -19,11 +19,14 @@ const championshipsPage = async (req, res) => {
 
 // Renders the championship overview page
 // This shows current statistics after the latest race
-const championshipOverviewPage = async (req, res) => res.render('championship_overview');
+const championshipOverviewPage = async (req, res) => {
+  req.session.championshipName = req.url.split('/').pop();
+  return res.render('championship_overview');
+};
 
 const getChampionshipData = async (req, res) => {
   try {
-    const query = { owner: req.session.account._id, name: req.params.name };
+    const query = { owner: req.session.account._id, name: req.session.championName };
     const championshipData = await Championship.findOne(query)
       .select('name races drivers')
       .lean()
