@@ -26,6 +26,16 @@ const Table = () => {
             <th>Points</th>
             <th>Next</th>
             <th>Ldr</th>
+            <th>Poles</th>
+            <th>Wins</th>
+            <th>Top5</th>
+            <th>Top10</th>
+            <th>Top15</th>
+            <th>Top20</th>
+            <th>DNFs</th>
+            <th>Races Led</th>
+            <th>Avg Sta</th>
+            <th>Avg Fin</th>
           </tr>
           {champData.drivers.map((driver, index, arr) => {
             return (
@@ -46,6 +56,16 @@ const Table = () => {
                       driver.pointsPerRace[driver.pointsPerRace.length - 1]
                     : 0}
                 </td>
+                <td>{driver.poles}</td>
+                <td>{driver.wins}</td>
+                <td>{driver.top5}</td>
+                <td>{driver.top10}</td>
+                <td>{driver.top15}</td>
+                <td>{driver.top20}</td>
+                <td>{driver.dnfs}</td>
+                <td>{driver.racesLed}</td>
+                <td>{driver.avgStart}</td>
+                <td>{driver.avgFinish}</td>
               </tr>
             );
           })}
