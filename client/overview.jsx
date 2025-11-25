@@ -24,6 +24,8 @@ const Table = () => {
             <th>Rank</th>
             <th>Driver</th>
             <th>Points</th>
+            <th>Next</th>
+            <th>Ldr</th>
           </tr>
           {champData.drivers.map((driver, index, arr) => {
             return (
@@ -31,6 +33,19 @@ const Table = () => {
                 <td>{index + 1}</td>
                 <td>{driver.driverName}</td>
                 <td>{driver.pointsPerRace[driver.pointsPerRace.length - 1]}</td>
+                <td>
+                  {index != 0
+                    ? arr[index - 1].pointsPerRace[
+                        arr[index - 1].pointsPerRace.length - 1
+                      ] - driver.pointsPerRace[driver.pointsPerRace.length - 1]
+                    : 0}
+                </td>
+                <td>
+                  {index != 0
+                    ? arr[0].pointsPerRace[arr[0].pointsPerRace.length - 1] -
+                      driver.pointsPerRace[driver.pointsPerRace.length - 1]
+                    : 0}
+                </td>
               </tr>
             );
           })}

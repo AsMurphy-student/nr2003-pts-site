@@ -263,3 +263,12 @@ h3.domoAge {
 .domo:last-child {
     margin-bottom:10px;
 }
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+}
