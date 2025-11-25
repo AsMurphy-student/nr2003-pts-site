@@ -1,22 +1,25 @@
 const React = require('react');
-const { useEffect } = React;
+const { useEffect, useState } = React;
 const { createRoot } = require('react-dom/client');
 
-const test = async () => {
-  const response = await fetch('/getChampionship', {
-    method: 'GET',
-  });
-
-  const result = await response.json();
-  console.log(result);
-}
-
 const Table = () => {
+  const [champData, setChampData] = useState();
+  useEffect(() => {
+    const getChampionshipData = async () => {
+      const response = await fetch('/getChampionship', {
+        method: 'GET',
+      });
+    
+      const result = await response.json();
+      setChampData(result.championshipData);
+    };
+    getChampionshipData();
+  }, []);
   return (
     <div>
       <div>
         {/* <p>stuff</p>*/}
-        <button onClick={test}>test</button>
+        <button onClick={() => console.log(champData)}>TEst again</button>
       </div>
     </div>
   );
