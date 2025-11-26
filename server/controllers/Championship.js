@@ -13,7 +13,9 @@ const championshipsPage = async (req, res) => {
 
     return res.render('championships', { championships: docs });
   } catch (err) {
-    return res.status(500).json({ error: `Error retrieving championships: ${err}` });
+    return res
+      .status(500)
+      .json({ error: `Error retrieving championships: ${err}` });
   }
 };
 
@@ -26,16 +28,39 @@ const championshipOverviewPage = async (req, res) => {
 
 const getChampionshipData = async (req, res) => {
   try {
-    const query = { owner: req.session.account._id, name: req.session.championshipName };
+    const query = {
+      owner: req.session.account._id,
+      name: req.session.championshipName,
+    };
     const championshipData = await Championship.findOne(query)
       .select('name races drivers')
       .lean()
       .exec();
 
-    championshipData.drivers.sort(
-      (a, b) => b.pointsPerRace[b.pointsPerRace.length - 1]
-        - a.pointsPerRace[a.pointsPerRace.length - 1],
-    );
+    championshipData.drivers.sort((a, b) => {
+      if (
+        b.pointsPerRace[b.pointsPerRace.length - 1]
+        !== a.pointsPerRace[a.pointsPerRace.length - 1]
+      ) {
+        return (
+          b.pointsPerRace[b.pointsPerRace.length - 1]
+          - a.pointsPerRace[a.pointsPerRace.length - 1]
+        );
+      } if (b.wins !== a.wins) {
+        return b.wins - a.wins;
+      } if (b.top5 !== a.top5) {
+        return b.top5 - a.top5;
+      } if (b.top10 !== a.top10) {
+        return b.top10 - a.top10;
+      } if (b.top15 !== a.top15) {
+        return b.top15 - a.top15;
+      } if (b.top20 !== a.top20) {
+        return b.top20 - a.top20;
+      } if (b.lapsLed !== a.lapsLed) {
+        return b.lapsLed - a.lapsLed;
+      }
+      return b.lapsCompleted - a.lapsCompleted;
+    });
 
     if (!championshipData) return res.status(500).json({ error: 'Invalid championship name!' });
     return res.json({ championshipData });
@@ -57,7 +82,9 @@ const addRace = async (req, res) => {
       .exec();
 
     // Determine new race number
-    const newRaceNumber = championshipToAddTo.races ? championshipToAddTo.races.length + 1 : 1;
+    const newRaceNumber = championshipToAddTo.races
+      ? championshipToAddTo.races.length + 1
+      : 1;
 
     // Create html string to parse
     const fileBuffer = req.files.raceFile;
@@ -77,7 +104,9 @@ const addRace = async (req, res) => {
     // Redirect to overview page after updating
     return res.json({ redirect: `/championships/${championshipToAddTo.name}` });
   } catch (err) {
-    return res.status(500).json({ error: `Error retrieving championship or parsing file: ${err}` });
+    return res
+      .status(500)
+      .json({ error: `Error retrieving championship or parsing file: ${err}` });
   }
 };
 
