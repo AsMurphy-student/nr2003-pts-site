@@ -89,7 +89,7 @@ const makeChampionship = async (req, res) => {
 
   // Initialize required data
   const championshipData = {
-    name: req.body.name,
+    name: req.body.name.replace(' ', ''),
     totalLaps: 0,
     owner: req.session.account._id,
   };
