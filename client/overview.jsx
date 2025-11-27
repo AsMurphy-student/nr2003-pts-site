@@ -34,6 +34,8 @@ const Table = () => {
             <th>Top20</th>
             <th>DNFs</th>
             <th>Races Led</th>
+            <th>Laps Led</th>
+            <th>Laps Completed</th>
             <th>Avg Sta</th>
             <th>Avg Fin</th>
           </tr>
@@ -64,6 +66,8 @@ const Table = () => {
                 <td>{driver.top20}</td>
                 <td>{driver.dnfs}</td>
                 <td>{driver.racesLed}</td>
+                <td>{driver.lapsLed}</td>
+                <td>{driver.lapsCompleted}</td>
                 <td>{driver.avgStart}</td>
                 <td>{driver.avgFinish}</td>
               </tr>
