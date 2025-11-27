@@ -276,3 +276,20 @@ th, td {
 th {
     text-align: left;
 }
+
+/*table {
+    margin: 0 auto;
+}*/
+
+.table-container {
+    height: 300px;
+    width: fit-content;
+    overflow-y: auto;
+    border: 3px black solid;
+    margin: 0 auto;
+}
+
+.fetching-p-tag {
+    height: 300px;
+    text-align: center;
+}
