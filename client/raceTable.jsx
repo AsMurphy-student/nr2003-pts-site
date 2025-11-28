@@ -35,7 +35,7 @@ const RaceTable = () => {
                   return (
                     <tr>
                       <td>{index + 1}</td>
-                      <td>Need to add race name</td>
+                      <td>{race.trackName}</td>
                       <td>{race.finishPositions[0].lapsCompleted}</td>
                       <td>{race.finishPositions[0].driverName}</td>
                     </tr>
