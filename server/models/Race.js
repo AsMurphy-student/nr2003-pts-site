@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 // const _ = require('underscore');
 const { finishPositionSchema } = require('./finishPosition.js');
 const { startPositionSchema } = require('./startPosition.js');
+const trimDriverName = require('./helpers/trimmer');
 
 // const setName = (name) => _.escape(name).trim();
 
@@ -10,6 +11,11 @@ const RaceSchema = new mongoose.Schema({
     type: Number,
     min: 1,
     required: true,
+  },
+  trackName: {
+    type: String,
+    required: true,
+    set: trimDriverName,
   },
   // raceDate: {
   //   type: Date,
