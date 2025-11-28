@@ -264,32 +264,52 @@ h3.domoAge {
     margin-bottom:10px;
 }
 
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
 
-th, td {
-    padding: 10px;
-}
 
-th {
-    text-align: left;
-}
 
-/*table {
-    margin: 0 auto;
-}*/
+
+
+
+
+
+h1, h2, h3 {
+    text-align: center;
+}
 
 .table-container {
     height: 300px;
     width: fit-content;
     overflow-y: auto;
-    border: 3px black solid;
+    border: 3px solid black;
     margin: 0 auto;
 }
 
-.fetching-p-tag {
+.table-container table {
+    border-collapse: collapse;
+}
+
+.table-container th, .table-container td {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+/*.table-container thead {
+    border-bottom: 3px solid black;
+}*/
+
+.table-container thead th {
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #ffffff;
+    border-bottom: none;
+    box-shadow: inset 0px -4px 0px 0px #000;
+}
+
+.fetching-tag-container {
+    display: flex;
     height: 300px;
-    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
