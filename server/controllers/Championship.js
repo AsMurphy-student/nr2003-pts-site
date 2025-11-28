@@ -31,6 +31,11 @@ const racePage = async (req, res) => {
   return res.render('race_overview', { champName: req.session.championshipName });
 };
 
+const driverPage = async (req, res) => {
+  req.session.driver = req.url.split('/').pop();
+  return res.render('driver_overview', { champName: req.session.championshipName });
+};
+
 const getChampionshipData = async (req, res) => {
   try {
     const query = {
@@ -167,6 +172,7 @@ module.exports = {
   championshipsPage,
   championshipOverviewPage,
   racePage,
+  driverPage,
   getChampionshipData,
   makeChampionship,
   getRaceData,

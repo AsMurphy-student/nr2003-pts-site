@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>DomoMaker</title>
+  <link rel="shortcut icon" href="/assets/img/favicon.png"/>
+  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+</head>
+<body>
+  <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
+    <div class="navlink"><a href="/logout">Log out</a></div>
+    <div class="navlink"><a href="/championships">Back to Championships</a></div>
+    <div class="navlink"><a href="/championships/{{champName}}">Back to Overview</a></div>
+  </nav>
+  
+  <h1>Driver Overview</h1>
+  <section id="driverTable"></section>
+  <script src="/assets/driverPageBundle.js"></script>
+  {{!-- <script src="/assets/testBundle.js"></script> --}}
+  {{!-- <script src="/assets/mainBundle.js"></script> --}}
+</body>
+</html>

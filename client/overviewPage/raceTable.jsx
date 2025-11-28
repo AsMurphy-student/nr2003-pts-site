@@ -36,7 +36,7 @@ const RaceTable = () => {
                     <tr>
                       <td>{index + 1}</td>
                       <td>
-                        <a href={`/championships/${champData.name}/${index + 1}`}>{race.trackName}</a>
+                        <a href={`/championships/${champData.name}/race/${index + 1}`}>{race.trackName}</a>
                       </td>
                       <td>{race.finishPositions[0].lapsCompleted}</td>
                       <td>{race.finishPositions[0].driverName}</td>
