@@ -28,7 +28,7 @@ const championshipOverviewPage = async (req, res) => {
 
 const racePage = async (req, res) => {
   req.session.raceNumber = req.url.split('/').pop();
-  return res.render('race_overview');
+  return res.render('race_overview', { champName: req.session.championshipName });
 };
 
 const getChampionshipData = async (req, res) => {

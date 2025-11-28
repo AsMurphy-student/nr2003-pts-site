@@ -11,23 +11,27 @@ const RaceOverviewTable = () => {
       });
 
       const result = await response.json();
-      console.log(result.race);
       setRaceData(result.race);
     };
     getRaceData();
   }, []);
   return (
     <div>
-      {/* <button onClick={() => console.log(champData.drivers)}>Test</button>*/}
+      {/* <button onClick={() => console.log(champData.drivers)}>Return to Overview</button>*/}
       {raceData ? (
         <>
-          <h2>Race Overview</h2>
+          <h2>Finishing Order</h2>
           <div className='table-container'>
             <table>
               <thead>
                 <tr>
-                  <th>Rank</th>
+                  <th>Fin</th>
+                  <th>Sta</th>
                   <th>Driver</th>
+                  <th>Interval</th>
+                  <th>Laps Completed</th>
+                  <th>Laps Led</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -35,7 +39,12 @@ const RaceOverviewTable = () => {
                   return (
                     <tr>
                       <td>{index + 1}</td>
+                      <td>{driver.startPos}</td>
                       <td>{driver.driverName}</td>
+                      <td>{driver.interval}</td>
+                      <td>{driver.lapsCompleted}</td>
+                      <td>{driver.lapsLed}</td>
+                      <td>{driver.status}</td>
                     </tr>
                   );
                 })}
