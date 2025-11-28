@@ -32,7 +32,7 @@ const createRaceModel = (htmlString, raceNumber) => {
   const tables = domOfRace.window.document.querySelectorAll('table');
   const tableNames = getTableTitles(tables);
 
-  const trackName = domOfRace.window.document.querySelectorAll('h3')[0].innerHTML.slice(9);
+  const trackName = domOfRace.window.document.querySelectorAll('h3')[0].innerHTML.slice(9).toUpperCase();
 
   // Declare newRace RaceModel
   const newRace = new Race.RaceModel({
