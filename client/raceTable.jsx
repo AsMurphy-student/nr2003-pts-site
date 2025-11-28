@@ -19,7 +19,7 @@ const RaceTable = () => {
     <div>
       {champData ? (
         <>
-          <h2>Standings after {champData.races.length} Races</h2>
+          <h2>Info per Race</h2>
           <div className='table-container'>
             <table>
               <thead>
