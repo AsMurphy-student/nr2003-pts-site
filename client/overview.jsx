@@ -2,7 +2,7 @@ const React = require('react');
 const { useEffect, useState } = React;
 const { createRoot } = require('react-dom/client');
 
-const Table = () => {
+const OverviewTable = () => {
   const [champData, setChampData] = useState();
   useEffect(() => {
     const getChampionshipData = async () => {
@@ -99,10 +99,10 @@ const Table = () => {
   );
 };
 
-const tableInit = () => {
+const overviewTableInit = () => {
   const root = createRoot(document.getElementById('overviewTable'));
-  root.render(<Table />);
+  root.render(<OverviewTable />);
 };
 
 // window.onload = init;
-window.addEventListener('load', tableInit);
+window.addEventListener('load', overviewTableInit);

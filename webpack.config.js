@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
     entry: {
       main: './client/client.js',
-      overviewPage: ['./client/overview.jsx', './client/test.jsx'],
+      overviewPage: ['./client/overview.jsx', './client/raceTable.jsx'],
     },
     module: {
       rules: [
