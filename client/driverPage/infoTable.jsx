@@ -27,8 +27,7 @@ const InfoTable = () => {
   }, []);
   return (
     <div>
-      {/* <button onClick={() => console.log(champData.drivers)}>Return to Overview</button>*/}
-      {driverData ? (
+      {driverData && champData ? (
         <>
           <h2>Finishing Order</h2>
           <div className='table-container'>
