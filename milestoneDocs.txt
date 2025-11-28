@@ -1,4 +1,83 @@
 Questions
-1. 
+The intended purpose of this application is to let users track their championships in Nascar Racing 2003 and examine stats as a season progresses. Users can add races via uploading their exported race standings from the game.
+
+I have implemented the uploading of race data and the models needed for this with mongoose. I have basic displaying of data in tables for the championship as a whole and individual races.
+
+I need to go ahead and implement the get endpoint for getting a specific driver so that I can have components for driver pages setup with correct data. After that I will go ahead and remove all references to do domos and do some styling. I will then work on adding in some psuedo ad space for the profit model and implement a system to change the password. If time allows I will then go ahead and add some more components utilizing the rechart library to go ahead and make graphs based off of the championship data. I will focus on the necessary requirements left first and then focus on rechart graphs if time allows.
+
+React used as components for the tables in the pages as it is easier to do extra calculations if needed then in handlebars. I have jsx files in separate folders for each page and I go ahead and bundle all files in each folder to one bundle for each page. I plan on adding rechart components once other features that are needed are implemented.
+
+The data that is stored in mongodb is championship data. There is a championship name that is stored along with the total number of laps. There is an array of races objects which have the finishing and starting positions of each driver and other information for each driver such as laps led and interval. There is also a drivers array which has statistics for each driver such as laps led, laps completed, wins, top5s, poles, etc. There is no data that needs to be stored unless I have time to implement it such as race date and race weather but I will focus on other requirements first.
+
+My profit model will be psuedo ad space on each page which I still need to implement along with other features.
+
+I have no plan for going above and beyond since I have other needed features that must be finished first.
+
+No borrowed code was used besides from you and the domomaker assignment.
 
 Endpoints
+URL: /login
+Supported Methods: GET, POST
+Middleware: Requires Secure, Requires Login
+Description: Gets Loginpage and if post it logs in
+Return Type: HTML
+
+URL: /signup
+Supported Methods: GET, POST
+Middleware: Requires Secure, Requires Login
+Description: Gets Signup page and if post it signs up
+Return Type: HTML
+
+URL: /logout
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Logs the user out
+Return Type: HTML
+
+URL: /championships
+Supported Methods: GET, POST
+Middleware: Requires Secure, Requires Login
+Description: Gets championships page and makes new championship on post
+Return Type: HTML
+
+URL: /championships/:name
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets overview page for specific championship
+Return Type: HTML
+
+URL: /championships/:name/race/:raceNumber
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets race page in specific championship
+Return Type: HTML
+
+URL: /championships/:name/driver/:driverName
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets driver page in specific championship
+Return Type: HTML
+
+URL: /getChampionship
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets championship data based off of the name which is stored in session
+Return Type: JSON
+
+URL: /getRace
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets race data based off of the number which is stored in session
+Return Type: JSON
+
+URL: /addRace
+Supported Methods: POST
+Middleware: Requires Secure, Requires Login
+Description: Posts new race based of off uploaded race file
+Return Type: JSON
+
+URL: /
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets the login page
+Return Type: HTML
