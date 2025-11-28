@@ -26,6 +26,11 @@ const championshipOverviewPage = async (req, res) => {
   return res.render('championship_overview');
 };
 
+const racePage = async (req, res) => {
+  req.session.raceNumber = req.url.split('/').pop();
+  return res.render('race_overview');
+};
+
 const getChampionshipData = async (req, res) => {
   try {
     const query = {
@@ -64,6 +69,26 @@ const getChampionshipData = async (req, res) => {
 
     if (!championshipData) return res.status(500).json({ error: 'Invalid championship name!' });
     return res.json({ championshipData });
+  } catch (err) {
+    return res.status(500).json({ error: `Something went wrong: ${err}` });
+  }
+};
+
+const getRaceData = async (req, res) => {
+  try {
+    const query = {
+      owner: req.session.account._id,
+      name: req.session.championshipName,
+    };
+    const championshipData = await Championship.findOne(query)
+      .select('name races drivers')
+      .lean()
+      .exec();
+
+    if (!championshipData) return res.status(500).json({ error: 'Invalid championship name!' });
+
+    const race = championshipData.races[parseInt(req.session.raceNumber, 10) - 1];
+    return res.json({ race });
   } catch (err) {
     return res.status(500).json({ error: `Something went wrong: ${err}` });
   }
@@ -141,7 +166,9 @@ const makeChampionship = async (req, res) => {
 module.exports = {
   championshipsPage,
   championshipOverviewPage,
+  racePage,
   getChampionshipData,
   makeChampionship,
+  getRaceData,
   addRace,
 };
