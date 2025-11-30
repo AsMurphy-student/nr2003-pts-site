@@ -20,6 +20,7 @@ const router = (app) => {
   app.get('/championships/:name/driver/:driverName', controllers.Championship.driverPage);
   app.get('/getChampionship', controllers.Championship.getChampionshipData);
   app.get('/getRace', controllers.Championship.getRaceData);
+  app.get('/getDriver', controllers.Championship.getDriverData);
 
   app.post('/addRace', controllers.Championship.addRace);
 

@@ -28,12 +28,16 @@ const championshipOverviewPage = async (req, res) => {
 
 const racePage = async (req, res) => {
   req.session.raceNumber = req.url.split('/').pop();
-  return res.render('race_overview', { champName: req.session.championshipName });
+  return res.render('race_overview', {
+    champName: req.session.championshipName,
+  });
 };
 
 const driverPage = async (req, res) => {
   req.session.driver = req.url.split('/').pop();
-  return res.render('driver_overview', { champName: req.session.championshipName });
+  return res.render('driver_overview', {
+    champName: req.session.championshipName,
+  });
 };
 
 const getChampionshipData = async (req, res) => {
@@ -56,17 +60,23 @@ const getChampionshipData = async (req, res) => {
           b.pointsPerRace[b.pointsPerRace.length - 1]
           - a.pointsPerRace[a.pointsPerRace.length - 1]
         );
-      } if (b.wins !== a.wins) {
+      }
+      if (b.wins !== a.wins) {
         return b.wins - a.wins;
-      } if (b.top5 !== a.top5) {
+      }
+      if (b.top5 !== a.top5) {
         return b.top5 - a.top5;
-      } if (b.top10 !== a.top10) {
+      }
+      if (b.top10 !== a.top10) {
         return b.top10 - a.top10;
-      } if (b.top15 !== a.top15) {
+      }
+      if (b.top15 !== a.top15) {
         return b.top15 - a.top15;
-      } if (b.top20 !== a.top20) {
+      }
+      if (b.top20 !== a.top20) {
         return b.top20 - a.top20;
-      } if (b.lapsLed !== a.lapsLed) {
+      }
+      if (b.lapsLed !== a.lapsLed) {
         return b.lapsLed - a.lapsLed;
       }
       return b.lapsCompleted - a.lapsCompleted;
@@ -94,6 +104,35 @@ const getRaceData = async (req, res) => {
 
     const race = championshipData.races[parseInt(req.session.raceNumber, 10) - 1];
     return res.json({ race });
+  } catch (err) {
+    return res.status(500).json({ error: `Something went wrong: ${err}` });
+  }
+};
+
+const getDriverData = async (req, res) => {
+  try {
+    const query = {
+      owner: req.session.account._id,
+      name: req.session.championshipName,
+    };
+    const championshipData = await Championship.findOne(query)
+      .select('name races drivers')
+      .lean()
+      .exec();
+
+    if (!championshipData) return res.status(500).json({ error: 'Invalid championship name!' });
+
+    const driverString = req.session.driver.replace('-', ' ');
+    const parsedDriverString = driverString.charAt(0).toUpperCase()
+      + driverString.slice(1, 2)
+      + driverString.charAt(2).toUpperCase()
+      + driverString.slice(3);
+
+    const driverObj = championshipData.drivers.find(
+      (driver) => driver.driverName === parsedDriverString,
+    );
+
+    return res.json({ driverObj });
   } catch (err) {
     return res.status(500).json({ error: `Something went wrong: ${err}` });
   }
@@ -176,5 +215,6 @@ module.exports = {
   getChampionshipData,
   makeChampionship,
   getRaceData,
+  getDriverData,
   addRace,
 };

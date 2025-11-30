@@ -12,9 +12,9 @@ const InfoTable = () => {
       });
 
       const result = await response.json();
-      setDriverData(result.race);
+      setDriverData(result.driverObj);
     };
-    // getDriverData();
+    getDriverData();
     const getChampionshipData = async () => {
       const response = await fetch('/getChampionship', {
         method: 'GET',
