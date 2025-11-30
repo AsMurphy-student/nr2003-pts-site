@@ -277,7 +277,7 @@ h1, h2, h3 {
 }
 
 .table-container {
-    height: 300px;
+    height: 600px;
     width: fit-content;
     overflow-y: auto;
     border: 3px solid black;
@@ -313,3 +313,17 @@ h1, h2, h3 {
     align-items: center;
     justify-content: center;
 }
+
+#driverFlexDiv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#driverFlexDiv > * {
+    padding: 2rem;
+}
+
+/*.graphParent {
+    align-items: center;
+    justify-content: center;
+}*/

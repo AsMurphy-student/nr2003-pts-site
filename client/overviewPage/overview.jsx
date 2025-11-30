@@ -20,7 +20,7 @@ const OverviewTable = () => {
       {/* <button onClick={() => console.log(champData.drivers)}>Test</button>*/}
       {champData ? (
         <>
-          <h2>Standings after {champData.races.length} Races</h2>
+          <h2>Standings after {champData.races.length} Races and {champData.totalLaps} Laps</h2>
           <div className='table-container'>
             <table>
               <thead>

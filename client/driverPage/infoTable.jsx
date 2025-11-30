@@ -13,7 +13,6 @@ const InfoTable = () => {
 
       const result = await response.json();
       setDriverData(result.driverObj);
-      console.log(result.driverObj);
     };
     getDriverData();
     const getChampionshipData = async () => {

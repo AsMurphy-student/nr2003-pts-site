@@ -47,7 +47,7 @@ const getChampionshipData = async (req, res) => {
       name: req.session.championshipName,
     };
     const championshipData = await Championship.findOne(query)
-      .select('name races drivers')
+      .select('name races drivers totalLaps')
       .lean()
       .exec();
 
@@ -96,7 +96,7 @@ const getRaceData = async (req, res) => {
       name: req.session.championshipName,
     };
     const championshipData = await Championship.findOne(query)
-      .select('name races drivers')
+      .select('name races drivers totalLaps')
       .lean()
       .exec();
 
@@ -116,7 +116,7 @@ const getDriverData = async (req, res) => {
       name: req.session.championshipName,
     };
     const championshipData = await Championship.findOne(query)
-      .select('name races drivers')
+      .select('name races drivers totalLaps')
       .lean()
       .exec();
 
@@ -146,7 +146,7 @@ const addRace = async (req, res) => {
     // Query championship doc that will be updated
     const query = { owner: req.session.account._id, name: req.body.name };
     const championshipToAddTo = await Championship.findOne(query)
-      .select('name races drivers')
+      .select('name races drivers totalLaps')
       .lean()
       .exec();
 

@@ -26,6 +26,7 @@
     "helmet": "^8.1.0",
     "jsdom": "^27.2.0",
     "mongoose": "^8.19.3",
+    "recharts": "^3.5.1",
     "redis": "^5.9.0",
     "serve-favicon": "^2.5.1",
     "underscore": "^1.13.7"
