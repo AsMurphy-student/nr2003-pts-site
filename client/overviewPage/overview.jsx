@@ -50,7 +50,9 @@ const OverviewTable = () => {
                   return (
                     <tr>
                       <td>{index + 1}</td>
-                      <td>{driver.driverName}</td>
+                      <td>
+                        <a href={`/championships/${champData.name}/driver/${driver.driverName.toLowerCase().replace(' ', '-')}`}>{driver.driverName}</a>
+                      </td>
                       <td>
                         {driver.pointsPerRace[driver.pointsPerRace.length - 1]}
                       </td>

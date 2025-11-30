@@ -13,6 +13,7 @@ const InfoTable = () => {
 
       const result = await response.json();
       setDriverData(result.driverObj);
+      console.log(result.driverObj);
     };
     getDriverData();
     const getChampionshipData = async () => {
@@ -44,10 +45,10 @@ const InfoTable = () => {
                 {driverData.finishPositions.map((finish, index) => {
                   return (
                     <tr>
-                      <td>Need to add</td>
-                      <td>Need to add</td>
-                      <td>Need to add</td>
-                      <td>Need to add</td>
+                      <td>{index + 1}</td>
+                      <td>{driverData.startPositions[index]}</td>
+                      <td>{finish}</td>
+                      <td>{driverData.pointsPerRace[index]}</td>
                     </tr>
                   );
                 })}
