@@ -35,44 +35,7 @@ const sendPost = async (url, data) => {
   // });
 
   const result = await response.json();
-  // document.getElementById('domoMessage').classList.add('hidden');
-
-  if (result.redirect) {
-    window.location = result.redirect;
-  }
-
-  if (result.error) {
-    handleError(result.error);
-  }
-};
-
-const sendFile = async (url, data) => {
-  // const response = await fetch(url, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify(data),
-  // });
-
-  console.log(data);
-
-  const formData = new FormData();
-  for (const key in data) {
-    if (data.hasOwnProperty(key)) {
-      formData.append(key, data[key]);
-    }
-  }
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-    body: formData,
-  });
-
-  const result = await response.json();
+  console.log(result);
   // document.getElementById('domoMessage').classList.add('hidden');
 
   if (result.redirect) {
