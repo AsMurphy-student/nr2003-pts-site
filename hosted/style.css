@@ -108,7 +108,7 @@ nav:nth-child(1) {
     display: none;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     text-align: center;
 }
 
@@ -153,4 +153,17 @@ h1, h2, h3 {
 
 #driverFlexDiv > * {
     padding: 2rem;
+}
+
+#race-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#championship-box {
+    border: 1px solid black;
+    display: inline-block;
+    margin: 1rem;
+    padding: 0.5rem;
 }

@@ -9,7 +9,7 @@ const { Championship } = models;
 const championshipsPage = async (req, res) => {
   try {
     const query = { owner: req.session.account._id };
-    const docs = await Championship.find(query).select('name').lean().exec();
+    const docs = await Championship.find(query).select('name races drivers totalLaps').lean().exec();
 
     return res.render('championships', { championships: docs });
   } catch (err) {

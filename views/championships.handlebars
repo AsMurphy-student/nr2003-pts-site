@@ -18,21 +18,25 @@
     </form>
   </section>
   <h3><span id="errorMessage"></span></h3>
-  
+
   <section id="championship">
     {{#if championships}}
       {{#each championships}}
-        <div class="championship">
+        <div id="championship-box">
           <h3 class="championshipName"><a href="/championships/{{this.name}}">{{this.name}}</a></h3>
-          
-          <form ref='uploadForm' 
-            id="{{this.name}}-form"
-            action='/addRace' 
-            method='post' 
-            encType="multipart/form-data">
-                <input type="file" name="raceFile" />
-                <input type='submit' value='Upload!' />
-            </form>
+          <h4>{{this.races.length}} Races Ran</h4>
+          <h4>{{this.totalLaps}} Laps Completed</h4>
+
+          <div id="race-form-container">
+              <form ref='uploadForm'
+                id="{{this.name}}-form"
+                action='/addRace'
+                method='post'
+                encType="multipart/form-data">
+                    <input type="file" name="raceFile" />
+                    <input type='submit' value='Upload!' />
+                </form>
+          </div>
         </div>
       {{/each}}
     {{else}}
