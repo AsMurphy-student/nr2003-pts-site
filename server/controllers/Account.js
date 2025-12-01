@@ -6,6 +6,8 @@ const loginPage = (req, res) => res.render('login');
 
 const signupPage = (req, res) => res.render('signup');
 
+const changePasswordPage = (req, res) => res.render('changePassword');
+
 const logout = (req, res) => {
   req.session.destroy();
   return res.redirect('/');
@@ -97,6 +99,7 @@ const changePassword = async (req, res) => {
 module.exports = {
   loginPage,
   signupPage,
+  changePasswordPage,
   login,
   logout,
   signup,
