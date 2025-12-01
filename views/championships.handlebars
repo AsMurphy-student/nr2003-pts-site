@@ -24,9 +24,6 @@
         <div class="championship">
           <h3 class="championshipName"><a href="/championships/{{this.name}}">{{this.name}}</a></h3>
           
-          <!--<input id="{{this.name}}-fileinput" type="file"></input>
-          <button id="{{this.name}}-addRaceTest">Add Race</button>-->
-          
           <form ref='uploadForm' 
             id="{{this.name}}-form"
             action='/addRace' 
@@ -38,7 +35,7 @@
         </div>
       {{/each}}
     {{else}}
-      <h3 class="emptyDomo">No Championships yet!</h3>
+      <h3>No Championships yet!</h3>
     {{/if}}
   </section>
   
