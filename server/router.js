@@ -8,6 +8,8 @@ const router = (app) => {
   app.post('/signup', controllers.Account.signup);
 
   app.get('/logout', controllers.Account.logout);
+  
+  app.post('/changePassword', controllers.Account.changePassword);
 
   // app.get('/maker', controllers.Domo.makerPage);
   // app.post('/maker', controllers.Domo.makeDomo);

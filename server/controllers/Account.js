@@ -58,10 +58,47 @@ const signup = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  // const username = `${req.body.username}`;
+  const pass = `${req.body.pass}`;
+  const pass2 = `${req.body.pass2}`;
+
+  // if (!username || !pass || !pass2) {
+  //   return res.status(400).json({ error: 'All fields are required!' });
+  // }
+
+  if (pass !== pass2) {
+    return res.status(400).json({ error: 'Passwords do not match!' });
+  }
+
+  try {
+    const hash = await Account.generateHash(pass);
+    // const newAccount = new Account({ username, password: hash });
+    // await newAccount.save();
+    // req.session.account = Account.toAPI(newAccount);
+    const updatedUser = await User.findByIdAndUpdate(
+      req.session.account._id,
+      { password: hash },
+      { new: true },
+    );
+    if (!updatedUser) {
+      return res.status(500).json({ error: 'An error occured!' });
+    }
+    return res.json({ redirect: '/logout' });
+  } catch (err) {
+    console.log(err);
+    if (err.code === 11000) {
+      return res.status(400).json({ error: 'Username already in use!' });
+    }
+    return res.status(500).json({ error: 'An error occured!' });
+  }
+};
+
 module.exports = {
   loginPage,
   signupPage,
   login,
   logout,
   signup,
+  changePassword,
 };
