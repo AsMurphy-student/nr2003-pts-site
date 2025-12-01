@@ -4,7 +4,6 @@
 */
 const handleError = (message) => {
   document.getElementById('errorMessage').textContent = message;
-  document.getElementById('domoMessage').classList.remove('hidden');
 };
 
 /* Sends post requests to the server using fetch. Will look for various
@@ -18,25 +17,7 @@ const sendPost = async (url, data) => {
     },
     body: JSON.stringify(data),
   });
-
-  // const formData = new FormData();
-  // for (const key in data) {
-  //   if (data.hasOwnProperty(key)) {
-  //     formData.append(key, data[key]);
-  //   }
-  // }
-
-  // const response = await fetch(url, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'multipart/form-data',
-  //   },
-  //   body: formData,
-  // });
-
   const result = await response.json();
-  console.log(result);
-  // document.getElementById('domoMessage').classList.add('hidden');
 
   if (result.redirect) {
     window.location = result.redirect;
@@ -55,7 +36,6 @@ const init = () => {
   const changePasswordForm = document.getElementById('changePasswordForm');
   const loginForm = document.getElementById('loginForm');
   const championshipForm = document.getElementById('championshipForm');
-  // const domoMessage = document.getElementById('domoMessage');
 
   /* If this page has the signupForm, add it's submit event listener.
      Event listener will grab the username, password, and password2
@@ -65,7 +45,6 @@ const init = () => {
   if (signupForm) {
     signupForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      // domoMessage.classList.add('hidden');
 
       const username = signupForm.querySelector('#user').value;
       const pass = signupForm.querySelector('#pass').value;
@@ -89,7 +68,6 @@ const init = () => {
   if (changePasswordForm) {
     changePasswordForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      // domoMessage.classList.add('hidden');
 
       const pass = changePasswordForm.querySelector('#pass').value;
       const pass2 = changePasswordForm.querySelector('#pass2').value;
@@ -112,7 +90,6 @@ const init = () => {
   if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      // domoMessage.classList.add('hidden');
 
       const username = loginForm.querySelector('#user').value;
       const pass = loginForm.querySelector('#pass').value;
@@ -135,12 +112,11 @@ const init = () => {
   if (championshipForm) {
     championshipForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      // domoMessage.classList.add('hidden');
 
       const name = championshipForm.querySelector('#championshipName').value;
 
       if (!name) {
-        // handleError('All fields are required!');
+        handleError('Championship name is required!');
         return false;
       }
 
@@ -149,39 +125,19 @@ const init = () => {
     });
   }
 
-  // const addTestButtons = document.querySelectorAll('.championship button');
-  // const fileInputs = document.querySelectorAll('.championship input');
-
-  // addTestButtons.forEach((button, index) => {
-  //   const championshipName = button.id.split('-')[0];
-
-  //   button.addEventListener('click', async () => {
-  //     // console.log(fileInputs[index].target);
-  //     // sendFile('/test', { name: championshipName });
-  //     // console.log(fileInputs[0].files[0]);
-
-  //     const response = await fetch('/test', {
-  //       method: 'POST',
-  //       body: fileInputs[0].files[0],
-  //     });
-
-  //     console.log(response);
-  //   });
-  // });
-
   const fileForms = document.querySelectorAll('.championship form');
 
   fileForms.forEach((form) => {
     const championshipName = form.id.split('-')[0];
-    
-    let currentForm = form;
-    
+
+    const currentForm = form;
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       const formData = new FormData(currentForm);
       formData.append('name', championshipName);
-      
+
       const response = await fetch('/addRace', {
         method: 'POST',
         body: formData,
@@ -192,9 +148,6 @@ const init = () => {
       if (result.redirect) {
         window.location = result.redirect;
       }
-
-      // const text = await response.text();
-      // document.getElementById('messages').innerText = text;
 
       return false;
     });
