@@ -89,6 +89,7 @@ const sendFile = async (url, data) => {
 */
 const init = () => {
   const signupForm = document.getElementById('signupForm');
+  const changePasswordForm = document.getElementById('changePasswordForm');
   const loginForm = document.getElementById('loginForm');
   const championshipForm = document.getElementById('championshipForm');
   // const domoMessage = document.getElementById('domoMessage');
@@ -118,6 +119,24 @@ const init = () => {
       }
 
       sendPost(signupForm.getAttribute('action'), { username, pass, pass2 });
+      return false;
+    });
+  }
+
+  if (changePasswordForm) {
+    changePasswordForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      // domoMessage.classList.add('hidden');
+
+      const pass = changePasswordForm.querySelector('#pass').value;
+      const pass2 = changePasswordForm.querySelector('#pass2').value;
+
+      if (pass !== pass2) {
+        handleError('Passwords do not match!');
+        return false;
+      }
+
+      sendPost(signupForm.getAttribute('action'), { pass, pass2 });
       return false;
     });
   }
