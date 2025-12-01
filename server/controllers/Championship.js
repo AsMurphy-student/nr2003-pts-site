@@ -24,7 +24,7 @@ const championshipsPage = async (req, res) => {
 const championshipOverviewPage = async (req, res) => {
   const query = {
     owner: req.session.account._id,
-    name: req.session.championshipName,
+    name: req.url.split('/').pop(),
   };
   const championshipData = await Championship.findOne(query)
     .select('name races drivers totalLaps')
