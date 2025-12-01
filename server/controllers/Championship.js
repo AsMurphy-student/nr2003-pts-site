@@ -28,6 +28,27 @@ const championshipOverviewPage = async (req, res) => {
 
 const racePage = async (req, res) => {
   req.session.raceNumber = req.url.split('/').pop();
+  const query = {
+    owner: req.session.account._id,
+    name: req.session.championshipName,
+  };
+  const championshipData = await Championship.findOne(query)
+    .select('name races drivers totalLaps')
+    .lean()
+    .exec();
+
+  if (!championshipData) {
+    return res.render('404-error', {
+      message: 'No Championship Found with that name!',
+      champName: req.session.championshipName,
+    });
+  }
+  if (req.session.raceNumber > championshipData.races.length) {
+    return res.render('404-error', {
+      message: `Race #${req.session.raceNumber} has not occurred yet!`,
+      champName: req.session.championshipName,
+    });
+  }
   return res.render('race_overview', {
     champName: req.session.championshipName,
   });
