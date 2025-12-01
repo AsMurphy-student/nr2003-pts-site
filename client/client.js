@@ -136,7 +136,7 @@ const init = () => {
         return false;
       }
 
-      sendPost(signupForm.getAttribute('action'), { pass, pass2 });
+      sendPost(changePasswordForm.getAttribute('action'), { pass, pass2 });
       return false;
     });
   }

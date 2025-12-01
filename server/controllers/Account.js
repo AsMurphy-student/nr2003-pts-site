@@ -78,7 +78,7 @@ const changePassword = async (req, res) => {
     // const newAccount = new Account({ username, password: hash });
     // await newAccount.save();
     // req.session.account = Account.toAPI(newAccount);
-    const updatedUser = await User.findByIdAndUpdate(
+    const updatedUser = await Account.findByIdAndUpdate(
       req.session.account._id,
       { password: hash },
       { new: true },
