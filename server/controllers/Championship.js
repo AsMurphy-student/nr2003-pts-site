@@ -22,12 +22,6 @@ const championshipsPage = async (req, res) => {
 // Renders the championship overview page
 // This shows current statistics after the latest race
 const championshipOverviewPage = async (req, res) => {
-  req.session.championshipName = req.url.split('/').pop();
-  return res.render('championship_overview');
-};
-
-const racePage = async (req, res) => {
-  req.session.raceNumber = req.url.split('/').pop();
   const query = {
     owner: req.session.account._id,
     name: req.session.championshipName,
@@ -40,21 +34,60 @@ const racePage = async (req, res) => {
   if (!championshipData) {
     return res.render('404-error', {
       message: 'No Championship Found with that name!',
-      champName: req.session.championshipName,
+    });
+  }
+  req.session.championshipName = req.url.split('/').pop();
+  return res.render('championship_overview');
+};
+
+const racePage = async (req, res) => {
+  const query = {
+    owner: req.session.account._id,
+    name: req.url.split('/')[2],
+  };
+  const championshipData = await Championship.findOne(query)
+    .select('name races drivers totalLaps')
+    .lean()
+    .exec();
+
+  if (!championshipData) {
+    return res.render('404-error', {
+      message: 'No Championship Found with that name!',
     });
   }
   if (req.session.raceNumber > championshipData.races.length) {
-    return res.render('404-error', {
-      message: `Race #${req.session.raceNumber} has not occurred yet!`,
+    return res.render('404-champ-error', {
+      message: `Race #${req.session.raceNumber} has not been added yet!`,
       champName: req.session.championshipName,
     });
   }
+  req.session.raceNumber = req.url.split('/').pop();
   return res.render('race_overview', {
     champName: req.session.championshipName,
   });
 };
 
 const driverPage = async (req, res) => {
+  const query = {
+    owner: req.session.account._id,
+    name: req.url.split('/')[2],
+  };
+  const championshipData = await Championship.findOne(query)
+    .select('name races drivers totalLaps')
+    .lean()
+    .exec();
+
+  if (!championshipData) {
+    return res.render('404-error', {
+      message: 'No Championship Found with that name!',
+    });
+  }
+  if (!championshipData.drivers.some((driver) => driver.driverName.toLowerCase().replace(' ', '-') === req.session.driver)) {
+    return res.render('404-champ-error', {
+      message: 'No Driver Found with that name!',
+      champName: req.session.championshipName,
+    });
+  }
   req.session.driver = req.url.split('/').pop();
   return res.render('driver_overview', {
     champName: req.session.championshipName,
