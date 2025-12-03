@@ -39,6 +39,9 @@ const championshipOverviewPage = async (req, res) => {
       message: 'No Championship Found with that name!',
     });
   }
+  if (championshipData.races.length === 0) {
+    return res.render('no-races-added');
+  }
   req.session.championshipName = req.url.split('/').pop();
   return res.render('championship_overview');
 };
