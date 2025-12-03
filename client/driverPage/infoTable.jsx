@@ -34,10 +34,12 @@ const InfoTable = () => {
             <table>
               <thead>
                 <tr>
-                  <th>Race</th>
+                  <th>Race #</th>
+                  <th>Track</th>
                   <th>Sta</th>
                   <th>Fin</th>
                   <th>Pts</th>
+                  <th>Pts Diff</th>
                 </tr>
               </thead>
               <tbody>
@@ -45,9 +47,11 @@ const InfoTable = () => {
                   return (
                     <tr>
                       <td>{index + 1}</td>
+                      <td>{champData.races[index].trackName}</td>
                       <td>{driverData.startPositions[index]}</td>
                       <td>{finish}</td>
                       <td>{driverData.pointsPerRace[index]}</td>
+                      <td>{index === 0 ? 0 : `+${driverData.pointsPerRace[index] - driverData.pointsPerRace[index - 1]}`}</td>
                     </tr>
                   );
                 })}
