@@ -5,7 +5,7 @@ module.exports = {
       main: './client/client.js',
       overviewPage: ['./client/overviewPage/overview.jsx', './client/overviewPage/raceTable.jsx'],
       racePage: ['./client/racePage/raceTable.jsx'],
-      driverPage: ['./client/driverPage/infoTable.jsx', './client/driverPage/pointsGraph.jsx'],
+      driverPage: ['./client/driverPage/infoTable.jsx', './client/driverPage/pointsGraph.jsx', './client/driverPage/pointsChangeGraph.jsx'],
     },
     module: {
       rules: [
