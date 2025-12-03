@@ -125,7 +125,7 @@ const init = () => {
     });
   }
 
-  const fileForms = document.querySelectorAll('.championship form');
+  const fileForms = document.querySelectorAll('#championship form');
 
   fileForms.forEach((form) => {
     const championshipName = form.id.split('-')[0];
@@ -147,6 +147,10 @@ const init = () => {
 
       if (result.redirect) {
         window.location = result.redirect;
+      }
+
+      if (result.error) {
+        handleError(result.error);
       }
 
       return false;

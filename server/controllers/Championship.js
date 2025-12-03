@@ -9,7 +9,10 @@ const { Championship } = models;
 const championshipsPage = async (req, res) => {
   try {
     const query = { owner: req.session.account._id };
-    const docs = await Championship.find(query).select('name races drivers totalLaps').lean().exec();
+    const docs = await Championship.find(query)
+      .select('name races drivers totalLaps')
+      .lean()
+      .exec();
 
     return res.render('championships', { championships: docs });
   } catch (err) {
@@ -82,7 +85,12 @@ const driverPage = async (req, res) => {
       message: 'No Championship Found with that name!',
     });
   }
-  if (!championshipData.drivers.some((driver) => driver.driverName.toLowerCase().replace(' ', '-') === req.session.driver)) {
+  if (
+    !championshipData.drivers.some(
+      (driver) => driver.driverName.toLowerCase().replace(' ', '-')
+        === req.url.split('/')[4],
+    )
+  ) {
     return res.render('404-champ-error', {
       message: 'No Driver Found with that name!',
       champName: req.session.championshipName,
@@ -197,6 +205,11 @@ const getDriverData = async (req, res) => {
 // This creates both a new race file and updates/adds driver docs
 const addRace = async (req, res) => {
   try {
+    if (req.files === null) {
+      return res.status(400).json({
+        error: 'Race file must be selected before uploading!',
+      });
+    }
     // Query championship doc that will be updated
     const query = { owner: req.session.account._id, name: req.body.name };
     const championshipToAddTo = await Championship.findOne(query)
