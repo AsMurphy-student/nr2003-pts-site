@@ -2,7 +2,9 @@ const React = require('react');
 const { useEffect, useState } = React;
 const { createRoot } = require('react-dom/client');
 
+// Table of races in a season for the overview page
 const RaceTable = () => {
+  // Get champ data on component load
   const [champData, setChampData] = useState();
   useEffect(() => {
     const getChampionshipData = async () => {
@@ -31,6 +33,7 @@ const RaceTable = () => {
                 </tr>
               </thead>
               <tbody>
+                {/* Loop through each race and create row for race */}
                 {champData.races.map((race, index, arr) => {
                   return (
                     <tr>

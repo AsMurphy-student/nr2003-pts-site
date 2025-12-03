@@ -1,13 +1,16 @@
 const React = require('react');
 const { useEffect, useState } = React;
 const { createRoot } = require('react-dom/client');
-import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { CartesianGrid, Legend, Line, LineChart, YAxis } from 'recharts';
 
+// Graph of points change per race
 const DriverPointsChangeGraph = () => {
+  // Driver Data stored for temporary use
   let driverData;
-  let champData;
+  // Line data and driver name use states for graph
   const [lineData, setLineData] = useState();
   const [driverName, setDriverName] = useState('');
+  // Get data and structure it on component load
   useEffect(async () => {
     const getDriverData = async () => {
       const response = await fetch('/getDriver', {
@@ -18,39 +21,7 @@ const DriverPointsChangeGraph = () => {
       driverData = result.driverObj;
     };
     await getDriverData();
-    const getChampionshipData = async () => {
-      const response = await fetch('/getChampionship', {
-        method: 'GET',
-      });
 
-      const result = await response.json();
-      champData = result.championshipData;
-    };
-    await getChampionshipData();
-
-    // const driverIndex = champData.drivers.findIndex(
-    //   (driver) => driver.driverName === driverData.driverName,
-    // );
-
-    // if (driverIndex > 0 && driverIndex < champData.drivers.length - 1) {
-    //   setDriversPointsArray([
-    //     champData.drivers[driverIndex - 1],
-    //     driverData,
-    //     champData.drivers[driverIndex + 1],
-    //   ]);
-    // } else if (driverIndex === 0) {
-    //   setDriversPointsArray([
-    //     driverData,
-    //     champData.drivers[driverIndex + 1],
-    //     champData.drivers[driverIndex + 2],
-    //   ]);
-    // } else {
-    //   setDriversPointsArray([
-    //     champData.drivers[driverIndex - 2],
-    //     champData.drivers[driverIndex - 1],
-    //     driverData,
-    //   ]);
-    // }
     setLineData(
       driverData.pointsPerRace.map((point, index, arr) => {
         if (index > 0) {

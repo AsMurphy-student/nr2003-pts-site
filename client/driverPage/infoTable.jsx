@@ -2,9 +2,13 @@ const React = require('react');
 const { useEffect, useState } = React;
 const { createRoot } = require('react-dom/client');
 
+// Creates table of per race data for a driver
 const InfoTable = () => {
+  // Use states for driver data and champ data
   const [driverData, setDriverData] = useState();
   const [champData, setChampData] = useState();
+  // UseEffect to run on component launch
+  // Populates driverdata and champdata
   useEffect(() => {
     const getDriverData = async () => {
       const response = await fetch('/getDriver', {
@@ -43,6 +47,7 @@ const InfoTable = () => {
                 </tr>
               </thead>
               <tbody>
+                {/* Loops through each finishing position to make rows in table */}
                 {driverData.finishPositions.map((finish, index) => {
                   return (
                     <tr>
@@ -51,7 +56,7 @@ const InfoTable = () => {
                       <td>{driverData.startPositions[index]}</td>
                       <td>{finish}</td>
                       <td>{driverData.pointsPerRace[index]}</td>
-                      <td>{index === 0 ? 0 : `+${driverData.pointsPerRace[index] - driverData.pointsPerRace[index - 1]}`}</td>
+                      <td>{index === 0 ? 0 : `+ ${driverData.pointsPerRace[index] - driverData.pointsPerRace[index - 1]}`}</td>
                     </tr>
                   );
                 })}

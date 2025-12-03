@@ -104,11 +104,7 @@ const init = () => {
     });
   }
 
-  /* If this page has the domoForm, add it's submit event listener.
-     Event listener will grab the domo name and the domo age from
-     the form. It will throw an error if one or both are missing.
-     Otherwise, it will send the request to the server.
-  */
+  // Championship creation form listener
   if (championshipForm) {
     championshipForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -125,6 +121,10 @@ const init = () => {
     });
   }
 
+  // Loops through each championship form and adds corresponding listener
+  // with correct championship name
+  // It gets the name from the id which is set by the server via handlebars
+  // in championships.handlebars
   const fileForms = document.querySelectorAll('#championship form');
 
   fileForms.forEach((form) => {

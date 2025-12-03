@@ -2,7 +2,9 @@ const React = require('react');
 const { useEffect, useState } = React;
 const { createRoot } = require('react-dom/client');
 
+// Creates points standings table for overview page
 const OverviewTable = () => {
+  // Get champ data on component load
   const [champData, setChampData] = useState();
   useEffect(() => {
     const getChampionshipData = async () => {
@@ -17,7 +19,6 @@ const OverviewTable = () => {
   }, []);
   return (
     <div>
-      {/* <button onClick={() => console.log(champData.drivers)}>Test</button>*/}
       {champData ? (
         <>
           <h2>Standings after {champData.races.length} Races and {champData.totalLaps} Laps</h2>
@@ -46,6 +47,7 @@ const OverviewTable = () => {
                 </tr>
               </thead>
               <tbody>
+                {/* Loop through each driver and create row */}
                 {champData.drivers.map((driver, index, arr) => {
                   return (
                     <tr>

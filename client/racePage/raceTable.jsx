@@ -2,7 +2,9 @@ const React = require('react');
 const { useEffect, useState } = React;
 const { createRoot } = require('react-dom/client');
 
+// Table for standings of a specific race
 const RaceOverviewTable = () => {
+  // Get race data on startup
   const [raceData, setRaceData] = useState();
   useEffect(() => {
     const getRaceData = async () => {
@@ -17,7 +19,6 @@ const RaceOverviewTable = () => {
   }, []);
   return (
     <div>
-      {/* <button onClick={() => console.log(champData.drivers)}>Return to Overview</button>*/}
       {raceData ? (
         <>
           <h2>Finishing Order</h2>
@@ -35,6 +36,7 @@ const RaceOverviewTable = () => {
                 </tr>
               </thead>
               <tbody>
+                {/* Loop through each finisher and create row */}
                 {raceData.finishPositions.map((driver, index) => {
                   return (
                     <tr>

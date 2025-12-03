@@ -1,13 +1,16 @@
 const React = require('react');
 const { useEffect, useState } = React;
 const { createRoot } = require('react-dom/client');
-import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { CartesianGrid, Legend, Line, LineChart, YAxis } from 'recharts';
 
 const DriverGraph = () => {
+  // Get driver and champ data to temporarily use
   let driverData;
   let champData;
+  // Use states for lineData and driver points array
   const [driversPointsArray, setDriversPointsArray] = useState();
   const [lineData, setLineData] = useState();
+  // Get main data on startup
   useEffect(async () => {
     const getDriverData = async () => {
       const response = await fetch('/getDriver', {
@@ -53,6 +56,8 @@ const DriverGraph = () => {
     }
   }, []);
 
+  // Once driverpoints data is updated
+  // setup line data
   useEffect(() => {
     if (driversPointsArray) {
       let tempLineData = [];
@@ -83,9 +88,6 @@ const DriverGraph = () => {
             data={lineData}
           >
             <CartesianGrid />
-            {/* {driversPointsArray.map(driver => (
-              <Line dataKey={driver.driverName} />
-            ))}*/}
             <Line dataKey={driversPointsArray[0].driverName} stroke='red' />
             <Line dataKey={driversPointsArray[1].driverName} stroke='green' />
             <Line dataKey={driversPointsArray[2].driverName} stroke='blue' />
