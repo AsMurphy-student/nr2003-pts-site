@@ -6,6 +6,7 @@ const { createRoot } = require('react-dom/client');
 const RaceOverviewTable = () => {
   // Get race data on startup
   const [raceData, setRaceData] = useState();
+  const [champName, setChampName] = useState('');
   useEffect(() => {
     const getRaceData = async () => {
       const response = await fetch('/getRace', {
@@ -16,10 +17,19 @@ const RaceOverviewTable = () => {
       setRaceData(result.race);
     };
     getRaceData();
+    const getChampionshipData = async () => {
+      const response = await fetch('/getChampionship', {
+        method: 'GET',
+      });
+
+      const result = await response.json();
+      setChampName(result.championshipData.name);
+    };
+    getChampionshipData();
   }, []);
   return (
     <div>
-      {raceData ? (
+      {raceData && champName ? (
         <>
           <h2>Finishing Order</h2>
           <div className='table-container'>
@@ -42,7 +52,9 @@ const RaceOverviewTable = () => {
                     <tr>
                       <td>{index + 1}</td>
                       <td>{driver.startPos}</td>
-                      <td>{driver.driverName}</td>
+                      <td>
+                        <a href={`/championships/${champName}/driver/${driver.driverName.toLowerCase().replace(' ', '-')}`}>{driver.driverName}</a>
+                      </td>
                       <td>{driver.interval}</td>
                       <td>{driver.lapsCompleted}</td>
                       <td>{driver.lapsLed}</td>

@@ -52,7 +52,9 @@ const InfoTable = () => {
                   return (
                     <tr>
                       <td>{index + 1}</td>
-                      <td>{champData.races[index].trackName}</td>
+                      <td>
+                        <a href={`/championships/${champData.name}/race/${index + 1}`}>{champData.races[index].trackName}</a>
+                      </td>
                       <td>{driverData.startPositions[index]}</td>
                       <td>{finish}</td>
                       <td>{driverData.pointsPerRace[index]}</td>
