@@ -17,6 +17,13 @@
       <input class="makeChampionshipSubmit" type="submit" value="Make Championship" />
     </form>
   </section>
+  {{#unless isPremium}}
+    <section id="ad-space">
+        <img id="ad-img" src="/assets/img/adspace.png" alt="Mock Ad Space" />
+        <img id="ad-img" src="/assets/img/adspace.png" alt="Mock Ad Space" />
+        <img id="ad-img" src="/assets/img/adspace.png" alt="Mock Ad Space" />
+    </section>
+  {{/unless}}
   <h3><span id="errorMessage"></span></h3>
 
   <section id="championship">
@@ -43,6 +50,7 @@
       <h3>No Championships yet!</h3>
     {{/if}}
   </section>
+
   <script src="/assets/mainBundle.js"></script>
 </body>
 </html>

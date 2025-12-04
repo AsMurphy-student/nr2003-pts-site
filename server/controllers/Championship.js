@@ -9,12 +9,13 @@ const { Championship } = models;
 const championshipsPage = async (req, res) => {
   try {
     const query = { owner: req.session.account._id };
+    console.log(req.session.account);
     const docs = await Championship.find(query)
       .select('name races drivers totalLaps')
       .lean()
       .exec();
 
-    return res.render('championships', { championships: docs });
+    return res.render('championships', { championships: docs, isPremium: req.session.account.isPremium });
   } catch (err) {
     return res
       .status(500)
