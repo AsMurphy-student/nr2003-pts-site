@@ -12,6 +12,8 @@ const router = (app) => {
   app.get('/changePassword', controllers.Account.changePasswordPage);
   app.post('/changePassword', controllers.Account.changePassword);
 
+  app.post('/togglePremium', controllers.Account.togglePremium);
+
   // app.get('/maker', controllers.Domo.makerPage);
   // app.post('/maker', controllers.Domo.makeDomo);
 

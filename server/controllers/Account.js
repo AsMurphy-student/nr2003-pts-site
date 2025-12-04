@@ -6,7 +6,7 @@ const loginPage = (req, res) => res.render('login');
 
 const signupPage = (req, res) => res.render('signup');
 
-const changePasswordPage = (req, res) => res.render('changePassword');
+const changePasswordPage = (req, res) => res.render('changePassword', { isPremium: req.session.account.isPremium });
 
 const logout = (req, res) => {
   req.session.destroy();
@@ -96,6 +96,22 @@ const changePassword = async (req, res) => {
   }
 };
 
+const togglePremium = async (req, res) => {
+  try {
+    const updatedUser = await Account.findByIdAndUpdate(
+      req.session.account._id,
+      { isPremium: !req.session.account.isPremium },
+      { new: true },
+    );
+    if (!updatedUser) {
+      return res.status(500).json({ error: 'An error occured!' });
+    }
+    return res.json({ redirect: '/logout' });
+  } catch (err) {
+    return res.status(500).json({ error: 'An error occured!' });
+  }
+};
+
 module.exports = {
   loginPage,
   signupPage,
@@ -104,4 +120,5 @@ module.exports = {
   logout,
   signup,
   changePassword,
+  togglePremium,
 };

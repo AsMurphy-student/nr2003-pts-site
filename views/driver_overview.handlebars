@@ -11,6 +11,13 @@
     <div class="navlink"><a href="/championships">Back to Championships</a></div>
     <div class="navlink"><a href="/championships/{{champName}}">Back to Overview</a></div>
   </nav>
+  {{#unless isPremium}}
+    <section id="ad-space">
+        <img id="ad-img" src="/assets/img/adspace.png" alt="Mock Ad Space" />
+        <img id="ad-img" src="/assets/img/adspace.png" alt="Mock Ad Space" />
+        <img id="ad-img" src="/assets/img/adspace.png" alt="Mock Ad Space" />
+    </section>
+  {{/unless}}
 
   <h1>Driver Overview</h1>
   <div id="driverFlexDiv">

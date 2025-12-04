@@ -44,7 +44,7 @@ const championshipOverviewPage = async (req, res) => {
     return res.render('no-races-added');
   }
   req.session.championshipName = req.url.split('/').pop();
-  return res.render('championship_overview');
+  return res.render('championship_overview', { isPremium: req.session.account.isPremium });
 };
 
 const racePage = async (req, res) => {
@@ -71,6 +71,7 @@ const racePage = async (req, res) => {
   req.session.raceNumber = req.url.split('/').pop();
   return res.render('race_overview', {
     champName: req.session.championshipName,
+    isPremium: req.session.account.isPremium,
   });
 };
 
@@ -103,6 +104,7 @@ const driverPage = async (req, res) => {
   req.session.driver = req.url.split('/').pop();
   return res.render('driver_overview', {
     champName: req.session.championshipName,
+    isPremium: req.session.account.isPremium
   });
 };
 

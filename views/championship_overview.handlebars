@@ -10,6 +10,13 @@
     <div class="navlink"><a href="/logout">Log out</a></div>
     <div class="navlink"><a href="/championships">Back to Championships</a></div>
   </nav>
+  {{#unless isPremium}}
+    <section id="ad-space">
+        <img id="ad-img" src="/assets/img/adspace.png" alt="Mock Ad Space" />
+        <img id="ad-img" src="/assets/img/adspace.png" alt="Mock Ad Space" />
+        <img id="ad-img" src="/assets/img/adspace.png" alt="Mock Ad Space" />
+    </section>
+  {{/unless}}
   
   <h1>Championship Overview</h1>
   <section id="overviewTable"></section>

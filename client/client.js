@@ -156,6 +156,24 @@ const init = () => {
       return false;
     });
   });
+
+  document.getElementById('premium-button').addEventListener('click', async () => {
+    const response = await fetch('/togglePremium', {
+      method: 'POST',
+    });
+
+    const result = await response.json();
+
+    if (result.redirect) {
+      window.location = result.redirect;
+    }
+
+    if (result.error) {
+      handleError(result.error);
+    }
+
+    return false;
+  });
 };
 
 // Call init when the window loads.
