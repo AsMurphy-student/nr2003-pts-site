@@ -25,7 +25,7 @@ const SeasonPointsGraph = () => {
     }
     setLineData(tempLineData);
   };
-  
+
   // Get main data on startup
   useEffect(async () => {
     const getChampionshipData = async () => {
@@ -66,7 +66,11 @@ const SeasonPointsGraph = () => {
           if (c !== champData.drivers.length) {
             tempCount.push(<option value={c}>{c}</option>);
           }
-          tempCount.push(<option value={champData.drivers.length}>{champData.drivers.length}</option>);
+          tempCount.push(
+            <option value={champData.drivers.length}>
+              {champData.drivers.length}
+            </option>,
+          );
         }
       }
       setCountArray(tempCount);
@@ -93,10 +97,14 @@ const SeasonPointsGraph = () => {
           <h2>Season Graph across {champData.races.length} Races</h2>
           <label for="drivers">Choose a car:</label>
 
-          <select name="drivers" id="driverCountSelector" onChange={(e) => {
-            setDriverCount(e.target.value);
-            getLines(e.target.value);
-          }}>
+          <select
+            name="drivers"
+            id="driverCountSelector"
+            onChange={(e) => {
+              setDriverCount(e.target.value);
+              getLines(e.target.value);
+            }}
+          >
             {countArray}
           </select>
           <LineChart
@@ -106,7 +114,24 @@ const SeasonPointsGraph = () => {
           >
             <CartesianGrid />
             {lines}
-            <YAxis />
+            <YAxis
+              type="number"
+              domain={[
+                0,
+                champData.drivers[0].pointsPerRace[
+                  champData.drivers[0].pointsPerRace.length - 1
+                ],
+              ]}
+              ticks={new Array(10).fill(0).map((_, index, arr) => {
+                return Math.floor(
+                  (champData.drivers[0].pointsPerRace[
+                    champData.drivers[0].pointsPerRace.length - 1
+                  ] /
+                    arr.length) *
+                    (index + 1),
+                );
+              })}
+            />
             <Legend />
           </LineChart>
         </>
