@@ -182,3 +182,12 @@ h1, h2, h3, h4 {
     display: block;
     margin: 0 auto;
 }
+
+#seasonFlexDiv {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#seasonFlexDiv > * {
+    padding: 2rem;
+}
