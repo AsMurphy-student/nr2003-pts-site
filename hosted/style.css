@@ -150,6 +150,8 @@ h4 {
 .table-container td {
     border: 1px solid black;
     padding: 10px;
+    background-color: #2e4053;
+    color: #fff;
 }
 
 .table-container thead th {
@@ -157,7 +159,8 @@ h4 {
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: #ffffff;
+    background-color: #2e4053;
+    color: #fff;
     border-bottom: none;
     box-shadow: inset 0px -4px 0px 0px #000;
 }
@@ -201,15 +204,15 @@ h4 {
     align-items: center;
 }
 
-#championship-box a:link {
+a:link {
     color: #e5761a;
 }
 
-#championship-box a:visited {
+a:visited {
     color: #e5761a;
 }
 
-#championship-box a:hover {
+a:hover {
     color: #ff9900;
 }
 
