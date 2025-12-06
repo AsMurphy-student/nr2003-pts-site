@@ -1,23 +1,25 @@
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background-color: #343a40;
 }
 
 #logo {
     height: 40px;
     width: 40;
     padding-top: 5px;
-    float:left;
+    float: left;
     border-radius: 8px;
 }
 
 nav {
     width: 100%;
     height: 50px;
-    background-color: #55acee;
+    background-color: #2e4053;
 }
 
 nav:nth-child(1) {
@@ -28,23 +30,27 @@ nav:nth-child(1) {
     padding: 5px;
     padding-top: 12px;
     padding-left: 20px;
-    color: white;
+    color: #fff599;
     font-size: 1.3em;
     float: left;
 }
 
-.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
-    color: white;
+.navlink a,
+.navlink a:link,
+.navlink a:visited,
+.navlink a:hover,
+.navlink a:active {
+    color: #fff;
     text-decoration: none;
     padding: 5px;
     border-radius: 4px;
-    background-color: #55acee;
+    background-color: #e5761a;
     transition: background-color 0.4s ease;
 }
 
 .navlink a:hover {
     transition: background-color 0.8s ease;
-    background-color: #66bdff;
+    background-color: #ff9900;
 }
 
 .mainForm {
@@ -59,57 +65,73 @@ nav:nth-child(1) {
     text-align: center;
 }
 
-.mainForm label {
+.mainForm label,
+#championshipForm label {
     display: inline-block;
     width: 100px;
-    margin-right: 10px;
+    margin-right: 20px;
     text-align: right;
     font-size: 1.2em;
+    color: #fff;
 }
 
-.formSubmit {
+.formSubmit,
+.makeChampionshipSubmit,
+#premium-button {
     transition: background-color 0.4s ease;
     display: block;
     text-align: center;
     margin: 0 auto;
     margin-top: 14px;
     font-size: 1.2em;
-    width: 100px;
-    background-color: #55acee;
+    background-color: #e5761a;
     border-radius: 2px;
-    border-color: #66acee;
+    border-color: #ff9900;
     padding: 3px 0px;
     color: white;
     text-decoration: none;
 }
 
-.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+.formSubmit:link,
+.formSubmit:visited,
+.formSubmit:hover,
+.formSubmit:active {
     color: white;
 }
 
 .formSubmit:hover {
     transition: background-color 0.4s ease;
-    background-color: #338acc;
+    background-color: #ff9900;
 }
 
-#user, #pass, #pass2 {
+#user,
+#pass,
+#pass2,
+#championshipForm #championshipName,
+#premium-button {
     text-align: center;
     font-size: 1.1em;
     width: 180px;
     border-radius: 6px;
 }
 
-#user:focus, #pass:focus, #pass2:focus {
+#user:focus,
+#pass:focus,
+#pass2:focus {
     outline: none;
-    box-shadow: 0px 0px 1px 1px #55acee;
+    box-shadow: 0px 0px 1px 1px #ff9900;
 }
 
 .hidden {
     display: none;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
     text-align: center;
+    color: #fff;
 }
 
 .table-container {
@@ -124,9 +146,10 @@ h1, h2, h3, h4 {
     border-collapse: collapse;
 }
 
-.table-container th, .table-container td {
-  border: 1px solid black;
-  padding: 10px;
+.table-container th,
+.table-container td {
+    border: 1px solid black;
+    padding: 10px;
 }
 
 .table-container thead th {
@@ -161,11 +184,33 @@ h1, h2, h3, h4 {
     justify-content: center;
 }
 
-#championship-box {
-    border: 1px solid black;
+#championship-box,
+#championshipForm {
+    border: 4px solid black;
+    border-radius: 30px;
     display: inline-block;
     margin: 1rem;
-    padding: 0.5rem;
+    padding: 1rem;
+    background-color: #2e4053;
+    color: #fff;
+}
+
+#makeChampionship {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#championship-box a:link {
+    color: #e5761a;
+}
+
+#championship-box a:visited {
+    color: #e5761a;
+}
+
+#championship-box a:hover {
+    color: #ff9900;
 }
 
 #ad-space {
