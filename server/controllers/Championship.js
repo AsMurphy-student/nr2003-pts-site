@@ -104,7 +104,7 @@ const driverPage = async (req, res) => {
   req.session.driver = req.url.split('/').pop();
   return res.render('driver_overview', {
     champName: req.session.championshipName,
-    isPremium: req.session.account.isPremium
+    isPremium: req.session.account.isPremium,
   });
 };
 
