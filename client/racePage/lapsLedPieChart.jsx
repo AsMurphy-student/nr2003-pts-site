@@ -3,13 +3,14 @@ const { useEffect, useState } = React;
 const { createRoot } = require('react-dom/client');
 import { Legend, Pie, PieChart } from 'recharts';
 
+// Component which is a pie chart of laps led in a race
 const LapsLedPieChart = () => {
-  // Get champ data to temporarily use
+  // Get race data
   const [raceData, setRaceData] = useState();
-  // Use states for lineData and driver points array
+  // Pie Data use state
   const [pieData, setPieData] = useState();
 
-  // Get main data on startup
+  // Get race data on load
   useEffect(async () => {
     const getRaceData = async () => {
       const response = await fetch('/getRace', {
@@ -35,6 +36,7 @@ const LapsLedPieChart = () => {
     return color;
   };
   
+  // If race data changes then calculate the line data
   useEffect(() => {
     if (raceData) {
       const tempLineData = [];
@@ -63,7 +65,7 @@ const LapsLedPieChart = () => {
           <PieChart
             style={{
               width: '100%',
-              maxHeight: '80vh',
+              maxHeight: '40vh',
               aspectRatio: 1,
             }}
             responsive
@@ -72,10 +74,8 @@ const LapsLedPieChart = () => {
               data={pieData}
               innerRadius="80%"
               outerRadius="100%"
-              // Corner radius is the rounded edge of each pie slice
               cornerRadius="50%"
               fill="#8884d8"
-              // padding angle is the gap between each pie slice
               paddingAngle={5}
               dataKey="lapsLed"
             />

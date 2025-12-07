@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+// Driver Schema
+// includes a lot of properties and stats which are evident by the name
 const DriverSchema = new mongoose.Schema(
   {
     driverName: {

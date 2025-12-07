@@ -33,6 +33,7 @@ const AccountSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  // Is premium boolean to hide or show ads
   isPremium: {
     type: Boolean,
     default: false,

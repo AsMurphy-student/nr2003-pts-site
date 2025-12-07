@@ -9,7 +9,6 @@ const { Championship } = models;
 const championshipsPage = async (req, res) => {
   try {
     const query = { owner: req.session.account._id };
-    console.log(req.session.account);
     const docs = await Championship.find(query)
       .select('name races drivers totalLaps')
       .lean()
@@ -47,6 +46,8 @@ const championshipOverviewPage = async (req, res) => {
   return res.render('championship_overview', { isPremium: req.session.account.isPremium });
 };
 
+// Renders the race page
+// This shows stats on a specific race
 const racePage = async (req, res) => {
   const query = {
     owner: req.session.account._id,
@@ -75,6 +76,8 @@ const racePage = async (req, res) => {
   });
 };
 
+// This renders the driver page
+// This shows stats on the specific driver
 const driverPage = async (req, res) => {
   const query = {
     owner: req.session.account._id,
@@ -108,6 +111,7 @@ const driverPage = async (req, res) => {
   });
 };
 
+// This get the championship data which is called by react components
 const getChampionshipData = async (req, res) => {
   try {
     const query = {
@@ -119,6 +123,7 @@ const getChampionshipData = async (req, res) => {
       .lean()
       .exec();
 
+    // This is the sorting algorithm
     championshipData.drivers.sort((a, b) => {
       if (
         b.pointsPerRace[b.pointsPerRace.length - 1]
@@ -129,6 +134,9 @@ const getChampionshipData = async (req, res) => {
           - a.pointsPerRace[a.pointsPerRace.length - 1]
         );
       }
+      // These are tie breakers in points in order
+      // this ensures ties are always broken
+      // usually laps led and completed are not equal ever if they get down to there
       if (b.wins !== a.wins) {
         return b.wins - a.wins;
       }
@@ -157,6 +165,7 @@ const getChampionshipData = async (req, res) => {
   }
 };
 
+// This get race data which is called by react components
 const getRaceData = async (req, res) => {
   try {
     const query = {
@@ -177,6 +186,7 @@ const getRaceData = async (req, res) => {
   }
 };
 
+// This get driver data which is called by react components
 const getDriverData = async (req, res) => {
   try {
     const query = {

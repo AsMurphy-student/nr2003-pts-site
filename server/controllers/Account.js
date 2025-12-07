@@ -52,7 +52,6 @@ const signup = async (req, res) => {
     req.session.account = Account.toAPI(newAccount);
     return res.json({ redirect: '/championships' });
   } catch (err) {
-    console.log(err);
     if (err.code === 11000) {
       return res.status(400).json({ error: 'Username already in use!' });
     }
@@ -60,14 +59,10 @@ const signup = async (req, res) => {
   }
 };
 
+// Changes password of current user then logs them out
 const changePassword = async (req, res) => {
-  // const username = `${req.body.username}`;
   const pass = `${req.body.pass}`;
   const pass2 = `${req.body.pass2}`;
-
-  // if (!username || !pass || !pass2) {
-  //   return res.status(400).json({ error: 'All fields are required!' });
-  // }
 
   if (pass !== pass2) {
     return res.status(400).json({ error: 'Passwords do not match!' });
@@ -75,9 +70,6 @@ const changePassword = async (req, res) => {
 
   try {
     const hash = await Account.generateHash(pass);
-    // const newAccount = new Account({ username, password: hash });
-    // await newAccount.save();
-    // req.session.account = Account.toAPI(newAccount);
     const updatedUser = await Account.findByIdAndUpdate(
       req.session.account._id,
       { password: hash },
@@ -88,7 +80,6 @@ const changePassword = async (req, res) => {
     }
     return res.json({ redirect: '/logout' });
   } catch (err) {
-    console.log(err);
     if (err.code === 11000) {
       return res.status(400).json({ error: 'Username already in use!' });
     }
@@ -96,6 +87,7 @@ const changePassword = async (req, res) => {
   }
 };
 
+// Toggles premium mode and logs them out to update
 const togglePremium = async (req, res) => {
   try {
     const updatedUser = await Account.findByIdAndUpdate(

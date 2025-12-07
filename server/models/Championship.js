@@ -5,6 +5,7 @@ const { DriverSchema } = require('./Driver.js');
 
 const setName = (name) => _.escape(name).trim();
 
+// Championship schema
 const ChampionshipSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -12,8 +13,10 @@ const ChampionshipSchema = new mongoose.Schema({
     trim: true,
     set: setName,
   },
+  // Includes races array and drivers array
   races: [RaceSchema],
   drivers: [DriverSchema],
+  // Includes total laps counter which is updated on race added
   totalLaps: {
     type: Number,
     min: 0,

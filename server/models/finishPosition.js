@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const trimDriverName = require('./helpers/trimmer');
 
+// This is a finishing position schema for races
 const finishPositionSchema = new mongoose.Schema({
   driverName: {
     type: String,
@@ -41,11 +42,6 @@ const finishPositionSchema = new mongoose.Schema({
     required: true,
     set: trimDriverName,
   },
-  // owner: {
-  //   type: mongoose.Schema.ObjectId,
-  //   required: true,
-  //   ref: 'Championship',
-  // },
   createdDate: {
     type: Date,
     default: Date.now,

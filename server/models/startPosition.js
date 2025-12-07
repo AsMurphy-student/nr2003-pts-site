@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const trimDriverName = require('./helpers/trimmer');
 
+// Start position schema which includes speed in quali
 const startPositionSchema = new mongoose.Schema({
   driverName: {
     type: String,
@@ -17,11 +18,6 @@ const startPositionSchema = new mongoose.Schema({
     min: 0,
     required: true,
   },
-  // owner: {
-  //   type: mongoose.Schema.ObjectId,
-  //   required: true,
-  //   ref: 'Championship',
-  // },
   createdDate: {
     type: Date,
     default: Date.now,

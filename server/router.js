@@ -14,9 +14,6 @@ const router = (app) => {
 
   app.post('/togglePremium', controllers.Account.togglePremium);
 
-  // app.get('/maker', controllers.Domo.makerPage);
-  // app.post('/maker', controllers.Domo.makeDomo);
-
   app.get('/championships', controllers.Championship.championshipsPage);
   app.post('/championships', controllers.Championship.makeChampionship);
 

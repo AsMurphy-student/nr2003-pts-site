@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
-// const _ = require('underscore');
 const { finishPositionSchema } = require('./finishPosition.js');
 const { startPositionSchema } = require('./startPosition.js');
 const trimDriverName = require('./helpers/trimmer');
 
-// const setName = (name) => _.escape(name).trim();
-
+// Race schema including start and finish arrays
 const RaceSchema = new mongoose.Schema({
   raceNumber: {
     type: Number,
@@ -17,17 +15,13 @@ const RaceSchema = new mongoose.Schema({
     required: true,
     set: trimDriverName,
   },
+  // Didnt have time to parse and have race Data be available
   // raceDate: {
   //   type: Date,
   //   required: true,
   // },
   startPositions: [startPositionSchema],
   finishPositions: [finishPositionSchema],
-  // owner: {
-  //   type: mongoose.Schema.ObjectId,
-  //   required: true,
-  //   ref: 'Championship',
-  // },
   createdDate: {
     type: Date,
     default: Date.now,
