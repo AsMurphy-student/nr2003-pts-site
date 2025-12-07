@@ -78,7 +78,7 @@ const DriverGraph = () => {
     }
   }, [driversPointsArray]);
   return (
-    <div>
+    <div id='driverPointsGraph'>
       {driversPointsArray && lineData ? (
         <>
           <h2>Points Graph</h2>

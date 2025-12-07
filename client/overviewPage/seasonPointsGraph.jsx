@@ -91,12 +91,11 @@ const SeasonPointsGraph = () => {
   };
 
   return (
-    <div>
+    <div id='seasonPointsGraph'>
       {lineData && champData && lines && countArray ? (
         <>
           <h2>Season Graph across {champData.races.length} Races</h2>
-          <label for="drivers">Choose a car:</label>
-
+          <label id='driverCountSelectorLabel' for="drivers">Driver Count:</label>
           <select
             name="drivers"
             id="driverCountSelector"

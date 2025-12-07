@@ -32,7 +32,7 @@ const DriverPointsChangeGraph = () => {
     setDriverName(driverData.driverName);
   }, []);
   return (
-    <div>
+    <div id='driverPointsChangeGraph'>
       {lineData ? (
         <>
           <h2>Points Change Per Race Graph</h2>
