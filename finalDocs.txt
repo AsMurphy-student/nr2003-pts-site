@@ -1,0 +1,93 @@
+Questions:
+The intended purpose of this application is to let users track their championships in Nascar Racing 2003 and examine stats as a season progresses. Users can add races via uploading their exported race standings from the game.
+
+React used as components for the tables in the pages as it is easier to do extra calculations if needed then in handlebars. I have jsx files in separate folders for each page and I go ahead and bundle all files in each folder to one bundle for each page. I also have added in graphs using the Recharts library to visualize changes in points over time for drivers and pie charts for laps led in race pages.
+
+The data that is stored in mongodb is championship data. There is a championship name that is stored along with the total number of laps. There is an array of races objects which have the finishing and starting positions of each driver and other information for each driver such as laps led and interval. There is also a drivers array which has statistics for each driver such as laps led, laps completed, wins, top5s, poles, etc. The only thing I added in after the milestone was a isPremium boolean for accounts which toggles whether or not mock ads are shown.
+
+The choice to go ahead and work on storing all the data from race files was definitely a good decision. There was a lot of data to store and doing that first helped me then make the front end with that data. I am also more experienced with front end so dealing with data parsing and storing with the backend first, which is more difficult, was the right call.
+
+There are some aspects of the application which are not as good as they could be especially on the backend. The parsing of the file and storing of data in MongoDB is probably not the most efficient and could be improved, but I wanted to go ahead and finish other aspects of the project and did not end up having time to fix that. Some aspects of the frontend are not perfect either and could be polished better, however I wanted to prioritize getting graphs using the Recharts library in first.
+
+I learned a lot about how full stack applications work and how to plan exactly how a project is getting from an idea to an actual prototype like in this case.  I learned how to utilize MongoDB effectively to store a large amount of data in a structured way that is easy to understand. I already knew React, but that was in the context of React only applications. I learned how to use React along with Handlebars effectively. I use Handlebars for most pages and then implement section to host React Components. React handles dynamic parts, while Handlebars handles more static parts. I also use React for the tables, as it can be easier to reference different elements easily than Handlebars.
+
+I would go ahead and stylized the application more to have light and dark themes based on user OS settings. I would also go ahead and clean up some of the code in some areas especially in the Championship controller as there is some repetitive code. Another feature I could implement is Career modes. This can be something which a user can make to create several championships within a career they make. This would mean they could view stats over multiple seasons for different drivers. I could also include templates of careers with set schedules that users could try if they wish.
+
+I did not necessarily implement anything to fulfill the above and beyond, but there may be some aspects that can count towards it. The file uploading could count towards it especially since I had to do some special client code to ensure the file got uploaded to the correct championship. Another thing that could count is the graphs I used in the pages with the Recharts library as we did not cover that in class nor have I used them before in any of my projects.
+
+No borrowed code was used besides from you and the domomaker assignment.
+
+Endpoints
+URL: /login
+Supported Methods: GET, POST
+Middleware: Requires Secure, Requires Login
+Description: Gets Loginpage and if post it logs in
+Return Type: HTML
+
+URL: /signup
+Supported Methods: GET, POST
+Middleware: Requires Secure, Requires Login
+Description: Gets Signup page and if post it signs up
+Return Type: HTML
+
+URL: /logout
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Logs the user out
+Return Type: HTML
+
+URL: /championships
+Supported Methods: GET, POST
+Middleware: Requires Secure, Requires Login
+Query Params: name (championship name to use)
+Description: Gets championships page and makes new championship on post
+Return Type: HTML
+
+URL: /championships/:name
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets overview page for specific championship
+Return Type: HTML
+
+URL: /championships/:name/race/:raceNumber
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets race page in specific championship
+Return Type: HTML
+
+URL: /championships/:name/driver/:driverName
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets driver page in specific championship
+Return Type: HTML
+
+URL: /getChampionship
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets championship data based off of the name which is stored in session
+Return Type: JSON
+
+URL: /getRace
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets race data based off of the number which is stored in session
+Return Type: JSON
+
+URL: /addRace
+Supported Methods: POST
+Middleware: Requires Secure, Requires Login
+Description: Posts new race based of off uploaded race file
+Return Type: JSON
+
+URL: /togglePremium
+Supported Methods: POST
+Middleware: Requires Secure, Requires Login
+Query Params: No Params
+Description: Toggles premium mode which enables and disables mock ads
+Return Type: JSON
+
+URL: /
+Supported Methods: GET
+Middleware: Requires Secure, Requires Login
+Description: Gets the login page
+Return Type: HTML
