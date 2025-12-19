@@ -18,7 +18,7 @@ This is a deployed site which allows users to upload race data from Nascar Racin
 * Database: MongoDB
 
 ### How to Run the Project
-1. Clone this repository using `git clone https://github.com/AsMurphy-student/430-project-2.git`
+1. Clone this repository using `git clone https://github.com/AsMurphy-student/nr2003-pts-site.git`
 2. Install dependencies by running `npm install`
 3. Start the server by running `npm run webpackWatch` in one shell and `npm run nodemon` in another shell
 4. Access the website at [http://localhost:3000](http://localhost:3000)
